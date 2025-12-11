@@ -10,9 +10,15 @@
 </head>
 <body>
     
-    <div class="min-vh-100">
-        {{ $slot }}
-    </div>
+    <x-navbar />
 
+    <main>
+
+        <div class="min-vh-100">
+            {{ $slot }}
+        </div>
+
+    </main>
+    
 </body>
 </html>
