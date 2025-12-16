@@ -9,8 +9,8 @@
     <div class="row">
         <div class="col-12 text-center">
             <ul class="d-flex justify-content-evenly align-items-center list-unstyled text-p px-5 pt-3">
-                <li><a href="{{ route('works') }}" class="t-05">WORKS</a></li>
-                <li><a href="{{ route('news') }}" class="t-05">NEWS & INSIGHTS</a></li>
+                <li><a href="{{ route('work.index') }}" class="t-05">WORKS</a></li>
+                <li><a href="{{ route('insight.index') }}" class="t-05">NEWS & INSIGHTS</a></li>
                 <li><a href="{{ route('about') }}" class="t-05">ABOUT</a></li>
                 <li><a href="{{ route('contacts') }}" class="t-05">CONTACTS</a></li>
             </ul>

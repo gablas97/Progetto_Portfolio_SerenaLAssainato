@@ -11,16 +11,6 @@ class PublicController extends Controller
         return view('welcome');
     }
 
-    public function works()
-    {
-        return view('works');
-    }
-
-    public function news()
-    {
-        return view('news');
-    }
-
     public function about()
     {
         return view('about');

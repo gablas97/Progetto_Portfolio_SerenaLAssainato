@@ -18,6 +18,11 @@
 - About
 - Contacts
 
+### Lingue supportate
+- Inglese
+- Francese
+- Italiano
+
 ### Homepage
 Carosello di immagini di sfondo e possibilità di passare alle altre pagine attraverso la barra di navigazione.
 

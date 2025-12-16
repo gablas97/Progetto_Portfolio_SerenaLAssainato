@@ -1,6 +1,6 @@
 <x-layout>
     
-    <div class="position-absolute top-0 start-50 translate-middle-x text-center text-white z-3">
+    <div class="position-absolute top-0 start-50 translate-middle-x text-white z-3 w-100">
         <x-navbar />
     </div>
 

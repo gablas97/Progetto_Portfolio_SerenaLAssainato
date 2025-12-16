@@ -4,6 +4,6 @@
         <x-navbar />
     </div>
 
-    <h1> CONTACTS </h1>
+    <h1> NEWS & INSIGHTS </h1>
 
 </x-layout>
