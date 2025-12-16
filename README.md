@@ -1,9 +1,9 @@
 # Guida utente
 ## Palette e Fonts
 ### Colori
-- Primario: 
-- Secondario:
-- Accento:
+- Primario: **FCFAF0**
+- Secondario: **2A2A2A**
+- Accento: /
 
 ### Fonts
 - Titoli: **Sans Serif Book FLF** o **Inter**
