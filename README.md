@@ -13,7 +13,7 @@
 
 ## Struttura del sito
 - Homepage
-- Works
+- Projects
 - News & Insights
 - About
 - Contacts
@@ -28,7 +28,7 @@ Carosello di immagini di sfondo e possibilità di passare alle altre pagine attr
 
 Visualizzazione delle ultime news e progetti.
 
-### Works
+### Projects
 Visualizzazione di tutti i progetti realizzati sotto forma di card. Cliccando sulla card si aprirà la pagina di dettaglio del progetto selezionato.
 
 ### News & Insights

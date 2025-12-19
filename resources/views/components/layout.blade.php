@@ -8,7 +8,7 @@
     <title>Serena L'Assainato</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-primary">
+<body class="bg-p">
     
     {{-- <x-navbar /> --}}
 

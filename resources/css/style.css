@@ -2,12 +2,13 @@
 :root {
     --color-primary: #FCFAF0;
     --color-secondary: #2A2A2A;
-    --text-title: 'Inter', sans-serif;
-    --text-body: 'Montserrat', sans-serif;
+    --text-title: 'Lexend', sans-serif;
+    --text-body: 'Comfortaa', sans-serif;
 }
 
 * {
     font-family: var(--text-body);
+    letter-spacing: 2px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,6 +18,14 @@ h1, h2, h3, h4, h5, h6 {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.bg-p {
+    background-color: var(--color-primary);
+}
+
+.bg-s {
+    background-color: var(--color-secondary);
 }
 
 .text-p {
@@ -37,7 +46,15 @@ a {
 
 /* NAVBAR */
 ul a:hover {
-    color: #2A2A2A;
+    color: rgba(78, 78, 78, 0.301);
+}
+
+.title-1 {
+  padding-right: 120px;
+}
+
+.title-2 {
+  padding-left: 120px;
 }
 
 /* HOMEPAGE */
@@ -56,27 +73,20 @@ ul a:hover {
 
 #heroCarousel .carousel-item img {
     object-fit: cover;
+    object-position: center;
     height: 100vh;
     width: 100%;
 }
 
-/* WORKS */
+/* PROJECTS */
 .card {
-  width: 190px;
-  background: white;
-  padding: .4em;
-  border-radius: 6px;
-}
-
-.card-image {
-  background-color: rgb(236, 236, 236);
   width: 100%;
-  height: 130px;
-  border-radius: 6px 6px 0 0;
+  height: 100%;
+  overflow: hidden;
 }
 
-.card-image:hover {
-  transform: scale(0.98);
+.card img:hover {
+  transform: scale(1.2);
 }
 
 .category {
@@ -114,4 +124,54 @@ ul a:hover {
 
 .name:hover {
   cursor: pointer;
+}
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    height: 600px; /* Altezza fissa per orientamento verticale */
+    display: block;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(42, 42, 42, 0.9);
+    color: var(--color-primary);
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+}
+
+.project-title-overlay h5 {
+    color: var(--color-primary);
+    font-family: var(--text-title);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.05);
+    filter: brightness(0.8);
+}
+
+.project-card:hover .project-title-overlay {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .project-card {
+        height: 350px;
+    }
 }

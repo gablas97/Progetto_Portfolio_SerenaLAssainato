@@ -9,46 +9,57 @@
             </div>
         </div>
         
+        <!-- Alert di Successo -->
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('success') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <!-- Alert di Errore (opzionale) -->
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Errore! {{ session('error') }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <!-- Sezione Progetti -->
         <section class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>I tuoi progetti</h2>
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('project.create') }}" class="btn btn-primary">
                     + Crea nuovo progetto
                 </a>
             </div>
             
             <div class="row g-4">
-                @forelse($works as $work)
+                @forelse($projects as $project)
                 <div class="col-md-6 col-lg-4">
-                    <a href="#}" class="text-decoration-none">
+                    <a href="{{ route('project.show', $project->id) }}" class="text-decoration-none">
                         <div class="card h-100 shadow-sm">
-                            @if($work->image)
-                            <img src="{{ asset('storage/' . $work->image) }}" 
-                            class="card-img-top" 
-                            alt="{{ $work->title }}"
-                            style="height: 200px; object-fit: cover;">
-                            @else
-                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" 
-                            style="height: 200px;">
-                                <span class="text-white">Nessuna immagine</span>
+                            <div class="overflow-hidden">
+                                <img src="{{ asset('storage/' . $project->images[0]) }}" 
+                                class="card-img-top t-05" 
+                                alt="{{ $project->title }} COVER"
+                                style="height: 200px; object-fit: cover;">
                             </div>
-                            @endif
                             <div class="card-body">
-                                <h5 class="card-title text-dark">{{ $work->title }}</h5>
-                                @if($work->description)
+                                <h5 class="card-title text-dark">{{ $project->title }}</h5>
+                                @if($project->description)
                                 <p class="card-text text-muted">
-                                    {{ Str::limit($work->description, 100) }}
+                                    {{ Str::limit($project->description, 100) }}
                                 </p>
                                 @endif
                                 <p class="card-text text-dark">
-                                    Categoria: {{ $work->category }}
-                                    Data: {{ ($work->date->format('d/m/Y')) }}
+                                    Categoria: {{ $project->category }}
+                                    Data: {{ ($project->execution_date->format('d/m/Y')) }}
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
                                 <small class="text-muted">
-                                    Creato il {{ $work->created_at->format('d/m/Y') }}
+                                    Creato il {{ $project->created_at->format('d/m/Y') }}
                                 </small>
                             </div>
                         </div>
@@ -100,7 +111,7 @@
                                 @endif
                                 <p class="card-text text-dark">
                                     Categoria: {{ $insight->category }}
-                                    Data: {{ ($insight->date->format('d/m/Y')) }}
+                                    Data: {{ ($insight->execution_date->format('d/m/Y')) }}
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
