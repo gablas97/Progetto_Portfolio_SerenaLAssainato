@@ -10,7 +10,9 @@
 </head>
 <body class="bg-p">
     
-    {{-- <x-navbar /> --}}
+    @unless(request()->is('admin*') || request()->is('/'))
+        <x-navbar />
+    @endunless
 
     <main>
 
@@ -20,5 +22,7 @@
 
     </main>
     
+    <x-footer />
+
 </body>
 </html>

@@ -11,7 +11,7 @@
                         <form action="{{ route('project.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                            <!-- Titolo -->
+                            <!-- TITOLO -->
                             <div class="mb-3">
                                 <label for="title" class="form-label">Titolo <span class="text-danger">*</span></label>
                                 <input 
@@ -27,7 +27,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Descrizione -->
+                            <!-- DESCRIZIONE -->
                             <div class="mb-3">
                                 <label for="description" class="form-label">Descrizione <span class="text-danger">*</span></label>
                                 <textarea 
@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Immagini -->
+                            <!-- IMMAGINI -->
                             <div class="mb-3">
                                 <label for="images" class="form-label">Immagini <span class="text-danger">*</span> (minimo 1)</label>
                                 <input 
@@ -63,7 +63,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Data Esecuzione -->
+                            <!-- DATA ESECUZIONE -->
                             <div class="mb-3">
                                 <label for="execution_date" class="form-label">Data Esecuzione <span class="text-danger">*</span></label>
                                 <input 
@@ -79,7 +79,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Categorie -->
+                            <!-- CATEGORIE -->
                             <div class="mb-4">
                                 <label class="form-label">Categorie <span class="text-danger">*</span></label>
                                 <div class="form-check">
@@ -121,12 +121,25 @@
                                         Urban Planning
                                     </label>
                                 </div>
+                                <div class="form-check">
+                                    <input 
+                                        class="form-check-input @error('categories') is-invalid @enderror" 
+                                        type="checkbox" 
+                                        name="categories[]" 
+                                        value="illustrations" 
+                                        id="illustrations"
+                                        {{ in_array('illustrations', old('categories', [])) ? 'checked' : '' }}
+                                    >
+                                    <label class="form-check-label" for="illustrations">
+                                        Illustrations
+                                    </label>
+                                </div>
                                 @error('categories')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Buttons -->
+                            <!-- BOTTONI -->
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Annulla</a>
                                 <button type="submit" class="btn btn-primary">Crea Progetto</button>

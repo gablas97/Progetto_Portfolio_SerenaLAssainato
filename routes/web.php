@@ -6,15 +6,21 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\InsightController;
 use App\Http\Controllers\ProjectController;
+use Faker\Guesser\Name;
 
 // Public Controller
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/contacts', [PublicController::class, 'contacts'])->name('contacts');
+Route::post('/contact/send', [PublicController::class, 'send'])->name('contact.send');
 
 // Admin Controller
-Route::get('/admin', [AdminController::class, 'admin_login'])->name('admin.login');
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/login', [AdminController::class, 'login'])->name('login');
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+});
 
 // Project Controller
 Route::get('/projects', [ProjectController::class, 'project_index'])->name('project.index');

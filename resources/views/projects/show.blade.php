@@ -1,18 +1,14 @@
 <x-layout>
 
-    <div>
-        <x-navbar />
-    </div>
-
     <div class="container py-5">
-        <!-- Back Button -->
+        <!-- BOTTON INDIETRO -->
         <div class="mb-4">
             <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
                 ← Torna alla Dashboard
             </a>
         </div>
 
-        <!-- Project Header -->
+        <!-- HEADER PROGETTO -->
         <div class="row mb-4">
             <div class="col-12">
                 <h1 class="display-4">{{ $project->title }}</h1>
@@ -20,7 +16,7 @@
                     Eseguito il {{ $project->execution_date->format('d/m/Y') }}
                 </p>
                 
-                <!-- Categories -->
+                <!-- CATEGORIE -->
                 <div class="mb-3">
                     @foreach($project->categories as $category)
                         <span class="badge bg-secondary text-uppercase me-2">
@@ -31,7 +27,7 @@
             </div>
         </div>
 
-        <!-- Description -->
+        <!-- DESCRIZIONE -->
         <div class="row mb-5">
             <div class="col-12">
                 <h3>Descrizione</h3>
@@ -39,7 +35,7 @@
             </div>
         </div>
 
-        <!-- Images Gallery -->
+        <!-- GALLERIA IMMAGINI -->
         <div class="row mb-5">
             <div class="col-12">
                 <h3 class="mb-4">Galleria Immagini</h3>
@@ -54,7 +50,7 @@
                         data-bs-target="#imageModal{{ $loop->index }}">
                 </div>
 
-                <!-- Modal per immagine ingrandita -->
+                <!-- MODALE PER IMMAGINE INGRANDITA -->
                 <div class="modal fade" id="imageModal{{ $loop->index }}" tabindex="-1">
                     <div class="modal-dialog modal-xl modal-dialog-centered">
                         <div class="modal-content bg-transparent border-0">
@@ -70,7 +66,8 @@
             @endforeach
         </div>
 
-        <!-- Action Buttons -->
+        <!-- BOTTONI MODIFICA/ELIMINA -->
+        @auth
         <div class="row">
             <div class="col-12">
                 <a href="#" class="btn btn-warning me-2">
@@ -88,6 +85,7 @@
                 </form>
             </div>
         </div>
+        @endauth
     </div>
 
 </x-layout>

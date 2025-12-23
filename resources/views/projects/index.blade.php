@@ -1,9 +1,5 @@
 <x-layout>
     
-    <div>
-        <x-navbar />
-    </div>
-    
     <div class="container py-5">
         <div class="row justify-content-center align-items-center g-4">
             @forelse($projects as $project)

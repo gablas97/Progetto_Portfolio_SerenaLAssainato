@@ -1,6 +1,6 @@
 @props(['textColor' => 'text-s'])
 
-<nav class="container pt-5">
+<nav class="container pt-5 {{ $attributes->get('class') }}">
     <div class="row justify-content-center align-items-center mb-3">
         <div class="col-12 text-center">
             <a href="{{ route('homepage') }}">

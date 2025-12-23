@@ -1,9 +1,5 @@
 <x-layout>
 
-    <div>
-        <x-navbar />
-    </div>
-
     <div class="container-fluid p-0">
         
         <!-- Hero Section con immagine full width -->
@@ -80,27 +76,27 @@
                         </div>
                         <div class="col-md-10 cv-description">
                             <p class="mb-2">Architect at <strong>SURF Engineering Landscape & Urban Design</strong> - Rome, Italy</p>
-                            <p class="mb-0">Interior architect at <strong>Architectural Spaces</strong> - Galway, Ireland</p>
                         </div>
                     </div>
 
                     <!-- 2022 -->
                     <div class="cv-item row mb-4 pb-4 border-bottom">
-                        <div class="col-md-2 cv-year">
-                            <h4 class="fw-bold">2022</h4>
+                        <div class="col-md-2 cv-year mt-auto">
+                            <h4 class="fw-bold mb-0">2022</h4>
                         </div>
                         <div class="col-md-10 cv-description">
-                            <p class="mb-2">Architect at <strong>AL'Architetto</strong> - Grottaglie, Italy</p>
-                            <p class="mb-0">English B2 Certification</p>
+                            <p class="mb-2">Interior architect at <strong>Architectural Spaces</strong> - Galway, Ireland</p>
+                            <p class="mb-0">Architect at <strong>AL'Architetto</strong> - Grottaglie, Italy</p>
                         </div>
                     </div>
 
                     <!-- 2021 -->
                     <div class="cv-item row mb-4 pb-4 border-bottom">
-                        <div class="col-md-2 cv-year">
-                            <h4 class="fw-bold">2021</h4>
+                        <div class="col-md-2 cv-year mt-auto">
+                            <h4 class="fw-bold mb-0">2021</h4>
                         </div>
                         <div class="col-md-10 cv-description">
+                            <p class="mb-2">English B2 Certification</p>
                             <p class="mb-0">Master of Architecture at <strong>ENSAS</strong> - Strasbourg, France</p>
                         </div>
                     </div>
@@ -131,17 +127,17 @@
                             <h4 class="fw-bold">2018</h4>
                         </div>
                         <div class="col-md-10 cv-description">
-                            <p class="mb-2">Architectural internship at <strong>AL'Architetto</strong> - Grottaglie, Italy</p>
-                            <p class="mb-0">Start of architectural studies - Strasbourg, France</p>
+                            <p class="mb-0">Architectural internship at <strong>AL'Architetto</strong> - Grottaglie, Italy</p>
                         </div>
                     </div>
 
                     <!-- 2016 -->
                     <div class="cv-item row mb-4 pb-4 border-bottom">
-                        <div class="col-md-2 cv-year">
-                            <h4 class="fw-bold">2016</h4>
+                        <div class="col-md-2 cv-year mt-auto">
+                            <h4 class="fw-bold mb-0">2016</h4>
                         </div>
                         <div class="col-md-10 cv-description">
+                            <p class="mb-2">Start of architectural studies - Strasbourg, France</p>
                             <p class="mb-0">French B2 Certification</p>
                         </div>
                     </div>

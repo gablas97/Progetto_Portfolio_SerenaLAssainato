@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function admin_login(){
+    public function login(){
         return view('admin.login');
     }
 
-    public function index()
+    public function dashboard()
     {
         $projects = Project::latest()->get();
         $insights = Insight::latest()->get();

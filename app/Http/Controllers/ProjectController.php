@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // max 5MB per immagine
             'execution_date' => 'required|date',
             'categories' => 'required|array|min:1',
-            'categories.*' => 'in:landscape,architecture,urban_planning',
+            'categories.*' => 'in:landscape,architecture,urban_planning,illustrations',
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'description.required' => 'La descrizione è obbligatoria',

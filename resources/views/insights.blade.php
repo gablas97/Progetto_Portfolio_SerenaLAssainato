@@ -1,9 +1,5 @@
 <x-layout>
 
-    <div>
-        <x-navbar />
-    </div>
-
     <div class="container py-5">
         <div class="row mb-5 justify-content-center">
             <div class="col-12 text-center">
