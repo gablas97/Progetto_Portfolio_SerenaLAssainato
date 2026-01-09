@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="row mb-5 g-4">
+        <div class="row mb-5 g-4 justify-content-center align-items-center">
             @forelse($latestProjects as $project)
                 <div class="col-12 col-md-6 col-lg-3">
                     <a href="{{ route('project.show', $project->id) }}" class="text-decoration-none">
@@ -44,13 +44,15 @@
             @endforelse
         </div>
 
-        <div class="row mt-5">
-            <div class="col-12 text-center">
-                <a href="{{ route('project.index') }}" class="btn btn-outline-dark btn-lg px-5">
-                    VIEW ALL PROJECTS
-                </a>
+        @if(count($latestProjects) >= 4)
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="{{ route('project.index') }}" class="btn btn-outline-dark btn-lg px-5">
+                        VIEW ALL PROJECTS
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
     </section>
 
     <!-- DIVISORE -->
@@ -99,7 +101,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <p class="text-center text-muted">No insights available yet.</p>
+                    <p class="text-center text-muted">No news or insights available yet.</p>
                 </div>
             @endforelse
         </div>
@@ -108,7 +110,7 @@
             <div class="row mt-5">
                 <div class="col-12 text-center">
                     <a href="{{ route('insight.index') }}" class="btn btn-outline-dark btn-lg px-5">
-                        VIEW ALL INSIGHTS
+                        VIEW ALL NEWS & INSIGHTS
                     </a>
                 </div>
             </div>

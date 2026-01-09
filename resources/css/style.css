@@ -46,7 +46,19 @@ a {
 
 /* NAVBAR */
 ul a:hover {
-    color: rgba(78, 78, 78, 0.301);
+    opacity: 0.5;
+}
+
+.active:hover {
+    opacity: 1;
+}
+
+.inactive {
+    opacity: 0.5;
+}
+
+.inactive:hover {
+    opacity: 1;
 }
 
 .title-1 {

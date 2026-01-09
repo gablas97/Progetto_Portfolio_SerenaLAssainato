@@ -6,8 +6,8 @@
 - Accento: /
 
 ### Fonts
-- Titoli: **Sans Serif Book FLF** o **Inter**
-- Testi: **Montserrat**
+- Titoli: **Lexend**
+- Testi: **Comfortaa**
 
 ---
 
@@ -23,23 +23,13 @@
 - Francese
 - Italiano
 
-### Homepage
-Carosello di immagini di sfondo e possibilità di passare alle altre pagine attraverso la barra di navigazione.
-
-Visualizzazione delle ultime news e progetti.
-
-### Projects
-Visualizzazione di tutti i progetti realizzati sotto forma di card. Cliccando sulla card si aprirà la pagina di dettaglio del progetto selezionato.
-
-### News & Insights
-Visualizzazione di tutte le notizie, pubblicazioni e pensieri personali.
-
-### About
-Presentazione e foto personale.
-
-Lista stile CV della formazione ed esperienze lavorative.
-
-### Contacts
-Contatti personali.
-
----
+### Da fare
+<!-- 1. Verificare che le migrazioni siano corrette -->
+2. Sistemare la SHOW dei progetti
+3. Implementare la sezione News & Insights (rimaste da definire la INDEX e la SHOW)
+4. Modificare l'immagine divisore della pagina About e le 3 immagini in basso (provare con alcune immagini di Serena o eliminare)
+5. Sistemare il link di "Email" in Contacts
+6. Inserire la animazioni (libreria AoS)
+7. Gestire il responsive
+8. Gestire le traduzioni
+9. Inserire l'email e la password di Serena come uniche valide per il login

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProjectController extends Controller
 {
     public function project_index()
     {
         $projects = Project::latest()->get();
-
         return view('projects.index', compact('projects'));
     }
 
@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // max 5MB per immagine
             'execution_date' => 'required|date',
             'categories' => 'required|array|min:1',
-            'categories.*' => 'in:landscape,architecture,urban_planning,illustrations',
+            'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'description.required' => 'La descrizione è obbligatoria',
@@ -69,16 +69,61 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'location' => 'nullable|string|max:255',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'execution_year' => 'nullable|integer|digits:4',
+            'categories' => 'required|array|min:1',
+            'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
+        ]);
+
+        // Se vengono caricate nuove immagini, aggiungile alle esistenti
+        $imagePaths = $project->images ?? [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('projects', 'public');
+                $imagePaths[] = $path;
+            }
+        }
+
+        $project->update([
+            'title' => $validated['title'],
+            'subtitle' => $validated['subtitle'],
+            'description' => $validated['description'],
+            'location' => $validated['location'],
+            'images' => $imagePaths,
+            'execution_year' => $validated['execution_year'],
+            'categories' => $validated['categories'],
+        ]);
+
+        return redirect()->route('project.index')
+            ->with('success', "Progetto $project->title aggiornato con successo!");
     }
 
     public function destroy(Project $project)
     {
-        //
+        // Cancella le immagini dallo storage
+        foreach ($project->images as $image) {
+            $fullPath = public_path('storage/' . $image);
+
+            if (File::exists($fullPath)) {
+                File::delete($fullPath);
+            }
+        }
+
+        $project->delete();
+
+        return redirect()->route('project.index')
+            ->with('success', "Progetto $project->title aggiornato con successo!");
     }
 }

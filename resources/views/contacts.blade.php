@@ -1,21 +1,14 @@
 <x-layout>
 
     <div class="container py-5">
-        <!-- Page Title -->
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <h1 class="display-4">CONTACTS</h1>
-                <p class="lead text-muted">Let's work together</p>
-            </div>
-        </div>
 
-        <!-- Contacts Info Section -->
+        <!-- SEZIONE INFO CONTATTI -->
         <section class="row mb-5 pb-5 border-bottom">
             <div class="col-lg-8 offset-lg-2">
                 <div class="row text-center">
                     
                     <!-- Email -->
-                    <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="col-md-3 mb-4 mb-md-0">
                         <div class="contact-item">
                             <div class="contact-icon mb-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -29,7 +22,7 @@
                     </div>
 
                     <!-- LinkedIn -->
-                    <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="col-md-6 mb-4 mb-md-0">
                         <div class="contact-item">
                             <div class="contact-icon mb-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -39,12 +32,12 @@
                                 </svg>
                             </div>
                             <h5 class="mb-2">LINKEDIN</h5>
-                            <a href="https://linkedin.com/in/prova" target="_blank" class="contact-link">prova@linkedin.com</a>
+                            <a href="https://linkedin.com/in/serena-lassainato" target="_blank" class="contact-link">serena-lassainato@linkedin.com</a>
                         </div>
                     </div>
 
                     <!-- Instagram -->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="contact-item">
                             <div class="contact-icon mb-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -62,7 +55,7 @@
             </div>
         </section>
 
-        <!-- Get in Touch Section -->
+        <!-- SEZIONE CONTATTAMI -->
         <section class="row">
             <div class="col-lg-8 offset-lg-2">
                 

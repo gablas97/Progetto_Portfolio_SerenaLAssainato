@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <p class="copyright mb-0">
-                    Copyright © 2025 | Website created by <a href="#" class="creator-link">Gabriele L'Assainato</a>
+                    Copyright © 2026 | Website created by <a href="#" class="creator-link">Gabriele L'Assainato</a>
                 </p>
             </div>
         </div>

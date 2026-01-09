@@ -10,7 +10,7 @@
 </head>
 <body class="bg-p">
     
-    @unless(request()->is('admin*') || request()->is('/'))
+    @unless(request()->is('admin*') || request()->is('/') || request()->is('login'))
         <x-navbar />
     @endunless
 

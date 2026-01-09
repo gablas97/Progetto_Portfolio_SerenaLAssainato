@@ -35,14 +35,14 @@
 
         <!-- Immagine divisoria full width -->
         <section class="about-divider">
-            <img src="{{ asset('images/section.jpg') }}" alt="Divider" class="w-100" style="height: 50vh; object-fit: cover;">
+            <img src="{{ asset('images/section-nosfondo.png') }}" alt="Divider" class="w-100" style="height: 50vh; object-fit: cover;">
         </section>
 
         <!-- Curriculum Section -->
         <section class="container py-5 my-5">
             <div class="row">
                 <div class="col-12 mb-5">
-                    <h2 class="display-5 text-center" style="letter-spacing: 2px;">CURRICULUM</h2>
+                    <h2 class="display-5 text-center">CURRICULUM</h2>
                 </div>
             </div>
 
@@ -157,7 +157,7 @@
         </section>
 
         <!-- Gallery section con 3 immagini affiancate -->
-        <section class="container-fluid px-0 mb-5">
+        {{-- <section class="container-fluid px-0 mb-5">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="https://picsum.photos/800/600?random=4" 
@@ -178,7 +178,7 @@
                         style="height: 400px; object-fit: cover;">
                 </div>
             </div>
-        </section>
+        </section> --}}
 
     </div>
 

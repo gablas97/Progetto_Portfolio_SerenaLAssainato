@@ -54,7 +54,7 @@
                                 @endif
                                 <p class="card-text text-dark">
                                     Categoria: {{ $project->category }}
-                                    Data: {{ ($project->execution_date->format('d/m/Y')) }}
+                                    Data: {{ $project->execution_year }}
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
@@ -78,10 +78,10 @@
         <hr class="my-5">
     
         <!-- Sezione News -->
-        <section>
+        <section class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Le tue news</h2>
-                <a href="#" class="btn btn-success">
+                <a href="{{ route('insight.create') }}" class="btn btn-success">
                     + Crea nuova news
                 </a>
             </div>
@@ -91,11 +91,11 @@
                 <div class="col-md-6 col-lg-4">
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 shadow-sm">
-                            @if($insight->image)
-                            <img src="{{ asset('storage/' . $insight->image) }}" 
-                            class="card-img-top" 
-                            alt="{{ $insight->title }}"
-                            style="height: 200px; object-fit: cover;">
+                            @if($insight->images)
+                            <img src="{{ asset('storage/' . $insight->images[0]) }}" 
+                                class="card-img-top t-05" 
+                                alt="{{ $insight->title }} COVER"
+                                style="height: 200px; object-fit: cover;">
                             @else
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" 
                             style="height: 200px;">
@@ -110,8 +110,9 @@
                                 </p>
                                 @endif
                                 <p class="card-text text-dark">
+                                    Tipo: {{ $insight->type }}
                                     Categoria: {{ $insight->category }}
-                                    Data: {{ ($insight->execution_date->format('d/m/Y')) }}
+                                    Data: {{ ($insight->date->format('d/m/Y')) }}
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
@@ -131,6 +132,17 @@
                 @endforelse
             </div>
         </section>
+
+        <div class="row">
+            <div class="col-12 col-md-6 text-center">
+                <a href="{{ route('homepage') }}" class="btn btn-dark">Vai alla homepage</a>
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+        </div>
     </div>
 
 </x-layout>

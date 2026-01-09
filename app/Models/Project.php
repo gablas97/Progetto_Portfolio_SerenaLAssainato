@@ -8,15 +8,17 @@ class Project extends Model
 {
     protected $fillable = [
         'title',
+        'subtitle',
         'description',
+        'location',
         'images',
-        'execution_date',
+        'execution_year',
         'categories',
     ];
 
     protected $casts = [
-        'execution_date' => 'date',
-        'images' => 'array', // Cast automatico da JSON a array
-        'categories' => 'array', // Cast automatico da JSON a array
+        'images' => 'array',
+        'execution_year' => 'integer',
+        'categories' => 'array',
     ];
 }

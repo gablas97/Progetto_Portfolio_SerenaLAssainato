@@ -11,10 +11,12 @@ return new class extends Migration
         Schema::create('insights', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('image');
+            $table->text('description');
             $table->date('date');
-            $table->string('category');
+            $table->json('images')->nullable();
+            $table->json('categories');
+            $table->enum('type', ['news', 'insight']);
+            $table->string('visit_link')->nullable();
             $table->timestamps();
         });
     }

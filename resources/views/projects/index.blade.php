@@ -15,9 +15,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <div class="alert alert-info">
-                        Non hai ancora creato nessun progetto. Creane uno ora!
-                    </div>
+                    <p class="text-center text-muted">No projects available yet.</p>
                 </div>
             @endforelse
         </div>
