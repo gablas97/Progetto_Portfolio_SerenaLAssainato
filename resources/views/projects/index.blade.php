@@ -15,7 +15,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <p class="text-center text-muted">No projects available yet.</p>
+                    <p class="text-center text-muted">{{ __('ui.no_projects') }}</p>
                 </div>
             @endforelse
         </div>

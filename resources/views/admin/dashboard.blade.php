@@ -52,14 +52,10 @@
                                     {{ Str::limit($project->description, 100) }}
                                 </p>
                                 @endif
-                                <p class="card-text text-dark">
-                                    Categoria: {{ $project->category }}
-                                    Data: {{ $project->execution_year }}
-                                </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
                                 <small class="text-muted">
-                                    Creato il {{ $project->created_at->format('d/m/Y') }}
+                                    Caricato il {{ $project->created_at->format('d/m/Y') }}
                                 </small>
                             </div>
                         </div>
@@ -89,7 +85,7 @@
             <div class="row g-4">
                 @forelse($insights as $insight)
                 <div class="col-md-6 col-lg-4">
-                    <a href="#" class="text-decoration-none">
+                    <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
                         <div class="card h-100 shadow-sm">
                             @if($insight->images)
                             <img src="{{ asset('storage/' . $insight->images[0]) }}" 
@@ -110,14 +106,12 @@
                                 </p>
                                 @endif
                                 <p class="card-text text-dark">
-                                    Tipo: {{ $insight->type }}
-                                    Categoria: {{ $insight->category }}
-                                    Data: {{ ($insight->date->format('d/m/Y')) }}
+                                    Tipo: <span class="text-uppercase">{{ $insight->type }}</span>
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0">
                                 <small class="text-muted">
-                                    Pubblicata il {{ $insight->created_at->format('d/m/Y') }}
+                                    Caricato il {{ $insight->created_at->format('d/m/Y') }}
                                 </small>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -24,10 +25,12 @@ class ProjectController extends Controller
         // Validazione
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'required|string',
+            'location' => 'nullable|string|max:255',
             'images' => 'required|array|min:1',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // max 5MB per immagine
-            'execution_date' => 'required|date',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'execution_year' => 'nullable|integer|digits:4|min:1900|max:' . date('Y'),
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
         ], [
@@ -35,7 +38,6 @@ class ProjectController extends Controller
             'description.required' => 'La descrizione è obbligatoria',
             'images.required' => 'Devi caricare almeno un\'immagine',
             'images.min' => 'Devi caricare almeno un\'immagine',
-            'execution_date.required' => 'La data di esecuzione è obbligatoria',
             'categories.required' => 'Devi selezionare almeno una categoria',
             'categories.min' => 'Devi selezionare almeno una categoria',
         ]);
@@ -52,10 +54,12 @@ class ProjectController extends Controller
         // Crea il progetto
         $project = Project::create([
             'title' => $validated['title'],
+            'subtitle' => $validated['subtitle'],
             'description' => $validated['description'],
-            'images' => ($imagePaths),
-            'execution_date' => $validated['execution_date'],
-            'categories' => ($validated['categories']),
+            'location' => $validated['location'],
+            'execution_year' => $validated['execution_year'],
+            'categories' => $validated['categories'],
+            'images' => $imagePaths,
         ]);
 
         return redirect()->route('admin.dashboard')
@@ -64,8 +68,27 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        $relatedProjects = Project::where('id', '!=', $project->id)
+            ->where(function($q) use ($project) {
+                foreach ($project->categories as $category) {
+                    $q->orWhereJsonContains('categories', $category);
+                }
+            })
+            ->get();
+
+        $relatedInsights = Insight::where(function($q) use ($project) {
+            foreach ($project->categories as $category) {
+                $q->orWhereJsonContains('categories', $category);
+            }
+        })->get();
+
+        $relatedItems = $relatedProjects->concat($relatedInsights)
+                            ->sortByDesc('created_at')
+                            ->take(6);
+
+        return view('projects.show', compact('project', 'relatedItems'));
     }
+
 
     public function edit(Project $project)
     {
@@ -124,6 +147,6 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('project.index')
-            ->with('success', "Progetto $project->title aggiornato con successo!");
+            ->with('success', "Progetto $project->title eliminato con successo!");
     }
 }

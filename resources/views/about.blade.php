@@ -17,16 +17,16 @@
                         style="width: 100%; height: 600px; object-fit: cover;">
                 </div>
                 <div class="col-lg-7 ps-lg-5">
-                    <h2 class="display-5 mb-4"">ABOUT ME</h2>
+                    <h2 class="display-5 mb-4 text-uppercase">{{ __('ui.about_me') }}</h2>
                     <div class="mt-auto">
                         <p class="mb-4">
-                            La mia esperienza professionale spazia dalla progettazione urbana alla landscape architecture, 
-                            con particolare attenzione alla sostenibilità e all'integrazione tra ambiente costruito e naturale. 
-                            Ho lavorato in diversi studi internazionali, sviluppando una visione multiculturale del progetto architettonico.
+                            {{ __('ui.about_me_1') }}
+                        </p>
+                        <p class="mb-4">
+                            {{ __('ui.about_me_2') }}
                         </p>
                         <p>
-                            Ogni progetto rappresenta un'opportunità per esplorare il dialogo tra spazio, funzione ed emozione, 
-                            creando ambienti che migliorano la qualità della vita e rispettano l'ambiente circostante.
+                            {{ __('ui.about_me_3') }}
                         </p>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
         <!-- Immagine divisoria full width -->
         <section class="about-divider">
-            <img src="{{ asset('images/section-nosfondo.png') }}" alt="Divider" class="w-100" style="height: 50vh; object-fit: cover;">
+            <img src="{{ asset('images/section.jpg') }}" alt="Divider" class="w-100" style="height: 50vh; object-fit: cover;">
         </section>
 
         <!-- Curriculum Section -->

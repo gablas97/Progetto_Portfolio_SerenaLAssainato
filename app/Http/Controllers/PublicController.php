@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use function Pest\Laravel\session;
+
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class PublicController extends Controller
 {
@@ -61,4 +64,16 @@ class PublicController extends Controller
 
         return redirect()->back()->with('success', 'Il tuo messaggio è stato inviato con successo! Ti risponderò al più presto.');
     }
+
+    public function setLanguage($lang)
+    {
+        if (!in_array($lang, ['it', 'en', 'fr'])) {
+            abort(400);
+        }
+
+        Session::put('locale', $lang);
+
+        return redirect()->back();
+    }
+
 }

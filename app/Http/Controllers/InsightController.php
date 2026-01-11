@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Insight;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -29,7 +30,7 @@ class InsightController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
-            'type' => 'required|in:news,insight',
+            'type' => 'required|in:news,insight,interview',
             'visit_link' => 'nullable|url|max:500',
         ]);
 
@@ -52,7 +53,25 @@ class InsightController extends Controller
 
     public function show(Insight $insight)
     {
-        return view('insights.show', compact('insight'));
+        $relatedProjects = Project::where(function($q) use ($insight) {
+            foreach ($insight->categories as $category) {
+                $q->orWhereJsonContains('categories', $category);
+            }
+        })->get();
+
+        $relatedInsights = Insight::where('id', '!=', $insight->id)
+            ->where(function($q) use ($insight) {
+                foreach ($insight->categories as $category) {
+                    $q->orWhereJsonContains('categories', $category);
+                }
+            })
+            ->get();
+
+        $relatedItems = $relatedProjects->concat($relatedInsights)
+                            ->sortByDesc('created_at')
+                            ->take(6);
+
+        return view('insights.show', compact('insight', 'relatedItems'));
     }
 
     public function edit(Insight $insight)
@@ -70,7 +89,7 @@ class InsightController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
-            'type' => 'required|in:news,insight',
+            'type' => 'required|in:news,insight,interview',
             'visit_link' => 'nullable|url|max:500',
         ]);
 
@@ -88,7 +107,7 @@ class InsightController extends Controller
             'images' => $imagePaths,
         ]);
 
-        return redirect()->route('insight.index')->with('success', 'Contenuto aggiornato!');
+        return redirect()->route('insight.index')->with('success', "Contenuto $insight->title aggiornato con successo!");
     }
 
     public function destroy(Insight $insight)

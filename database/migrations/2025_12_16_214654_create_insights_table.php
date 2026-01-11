@@ -15,7 +15,7 @@ return new class extends Migration
             $table->date('date');
             $table->json('images')->nullable();
             $table->json('categories');
-            $table->enum('type', ['news', 'insight']);
+            $table->enum('type', ['news', 'insight', 'interview']);
             $table->string('visit_link')->nullable();
             $table->timestamps();
         });

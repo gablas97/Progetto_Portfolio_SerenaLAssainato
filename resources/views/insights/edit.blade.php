@@ -53,6 +53,7 @@
                     <select name="type" class="form-select @error('type') is-invalid @enderror" required>
                         <option value="news" {{ old('type',$insight->type)=='news'?'selected':'' }}>News</option>
                         <option value="insight" {{ old('type',$insight->type)=='insight'?'selected':'' }}>Insight</option>
+                        <option value="interview" {{ old('type')=='interview'?'selected':'' }}>Interview</option>
                     </select>
                     @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>

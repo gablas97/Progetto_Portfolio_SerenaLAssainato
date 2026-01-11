@@ -3,7 +3,7 @@
     <div class="container py-5">
 
         <!-- SEZIONE INFO CONTATTI -->
-        <section class="row mb-5 pb-5 border-bottom">
+        {{-- <section class="row mb-5 pb-5 border-bottom">
             <div class="col-lg-8 offset-lg-2">
                 <div class="row text-center">
                     
@@ -53,15 +53,15 @@
 
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         <!-- SEZIONE CONTATTAMI -->
         <section class="row">
             <div class="col-lg-8 offset-lg-2">
                 
                 <div class="text-center mb-5">
-                    <h2 class="display-6 mb-3">GET IN TOUCH</h2>
-                    <p class="text-muted">Have a project in mind? Send me a message and I'll get back to you soon.</p>
+                    <h2 class="display-6 mb-3">{{ __('ui.get_in_touch') }}</h2>
+                    <p class="text-muted">{{ __('ui.contact_subtitle') }}</p>
                 </div>
 
                 <!-- Success Message -->
@@ -81,7 +81,7 @@
                             <!-- Nome e Cognome -->
                             <div class="row mb-4">
                                 <div class="col-md-6 mb-4 mb-md-0">
-                                    <label for="first_name" class="form-label">Nome <span class="text-danger">*</span></label>
+                                    <label for="first_name" class="form-label">{{ __('ui.first_name')}} <span class="text-danger">*</span></label>
                                     <input 
                                         type="text" 
                                         class="form-control @error('first_name') is-invalid @enderror" 
@@ -95,7 +95,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="last_name" class="form-label">Cognome <span class="text-danger">*</span></label>
+                                    <label for="last_name" class="form-label">{{ __('ui.last_name') }} <span class="text-danger">*</span></label>
                                     <input 
                                         type="text" 
                                         class="form-control @error('last_name') is-invalid @enderror" 
@@ -128,7 +128,7 @@
 
                             <!-- Message -->
                             <div class="mb-4">
-                                <label for="message" class="form-label">Messaggio <span class="text-danger">*</span></label>
+                                <label for="message" class="form-label">{{ __('ui.message') }} <span class="text-danger">*</span></label>
                                 <textarea 
                                     class="form-control @error('message') is-invalid @enderror" 
                                     id="message" 
@@ -143,8 +143,8 @@
 
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button type="submit" class="btn btn-dark btn-lg px-5 py-3">
-                                    SEND MESSAGE
+                                <button type="submit" class="btn btn-dark btn-lg px-5 py-3 text-uppercase">
+                                    {{ __('ui.send_message') }}
                                 </button>
                             </div>
 

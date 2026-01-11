@@ -45,6 +45,7 @@
                         <option value="">Seleziona...</option>
                         <option value="news" {{ old('type')=='news'?'selected':'' }}>News</option>
                         <option value="insight" {{ old('type')=='insight'?'selected':'' }}>Insight</option>
+                        <option value="interview" {{ old('type')=='interview'?'selected':'' }}>Interview</option>
                     </select>
                     @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>

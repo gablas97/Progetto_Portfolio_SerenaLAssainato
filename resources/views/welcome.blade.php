@@ -10,8 +10,8 @@
     <section class="container py-5 my-5">
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3" style="letter-spacing: 3px;">LATEST WORKS</h2>
-                <p class="text-muted">Recent projects in landscape architecture and urban design</p>
+                <h2 class="display-5 mb-3 text-uppercase" style="letter-spacing: 3px;">{{ __('ui.latest_projects') }}</h2>
+                <p class="text-muted">{{ __('ui.latest_projects_subtitle') }}</p>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <p class="text-center text-muted">No projects available yet.</p>
+                    <p class="text-center text-muted">{{ __('ui.no_projects') }}</p>
                 </div>
             @endforelse
         </div>
@@ -47,8 +47,8 @@
         @if(count($latestProjects) >= 4)
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="{{ route('project.index') }}" class="btn btn-outline-dark btn-lg px-5">
-                        VIEW ALL PROJECTS
+                    <a href="{{ route('project.index') }}" class="btn btn-outline-dark btn-lg px-5 text-uppercase">
+                        {{ __('ui.view_all_projects') }}
                     </a>
                 </div>
             </div>
@@ -64,12 +64,12 @@
     <section class="container py-5 my-5">
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3" style="letter-spacing: 3px;">NEWS & INSIGHTS</h2>
-                <p class="text-muted">Latest updates and thoughts on architecture</p>
+                <h2 class="display-5 mb-3 text-uppercase" style="letter-spacing: 3px;">{{ __('ui.latest_news') }}</h2>
+                <p class="text-muted">{{ __('ui.latest_news_subtitle') }}</p>
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center align-items-center">
             @forelse($latestInsights as $insight)
                 <div class="col-12 col-md-6 col-lg-3">
                     <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
@@ -78,12 +78,19 @@
                                 <img src="{{ asset('storage/' . $insight->image) }}" 
                                     class="insight-image-home" 
                                     alt="{{ $insight->title }}">
+                            @elseif ($insight->type === 'news')
+                                <img src="{{ asset('images/news.jpg') }}" 
+                                    class="insight-image-home" 
+                                    alt="News">
+                            @elseif ($insight->type === 'insight')
+                                <img src="{{ asset('images/insight.jpg') }}" 
+                                    class="insight-image-home" 
+                                    alt="Insight">
                             @else
-                                <div class="insight-image-home bg-secondary d-flex align-items-center justify-content-center">
-                                    <span class="text-white">No image</span>
-                                </div>
+                                <img src="{{ asset('images/interview.jpg') }}" 
+                                    class="insight-image-home" 
+                                    alt="Default">
                             @endif
-                            
                             <div class="insight-content-home">
                                 <small class="text-muted d-block mb-2">
                                     {{ $insight->created_at->format('d M Y') }}
@@ -94,14 +101,14 @@
                                         {{ Str::limit($insight->excerpt, 80) }}
                                     </p>
                                 @endif
-                                <span class="read-more">Read more →</span>
+                                <span class="read-more mt-auto">{{ __('ui.read_more') }} →</span>
                             </div>
                         </div>
                     </a>
                 </div>
             @empty
                 <div class="col-12">
-                    <p class="text-center text-muted">No news or insights available yet.</p>
+                    <p class="text-center text-muted">{{ __('ui.no_news') }}</p>
                 </div>
             @endforelse
         </div>
@@ -109,8 +116,8 @@
         @if(count($latestInsights) >= 4)
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="{{ route('insight.index') }}" class="btn btn-outline-dark btn-lg px-5">
-                        VIEW ALL NEWS & INSIGHTS
+                    <a href="{{ route('insight.index') }}" class="btn btn-outline-dark btn-lg px-5 text-uppercase">
+                        {{ __('ui.view_all_news') }}
                     </a>
                 </div>
             </div>
