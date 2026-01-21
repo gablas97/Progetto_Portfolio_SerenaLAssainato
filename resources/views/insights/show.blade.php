@@ -3,55 +3,78 @@
 <div class="container py-5">
 
     <!-- BOTTONE INDIETRO -->
-    <div class="mb-4">
-        <a href="{{ route('insight.index') }}" class="btn btn-outline-dark">{{ __('ui.back') }}</a>
+    <div class="row justify-content-center" data-aos="fade-down" data-aos-delay="800">
+        <div class="col-8">
+            <div class="mb-4">
+                <a href="{{ route('insight.index') }}" class="btn-underline">{{ __('ui.back') }}</a>
+            </div>
+        
+            <!-- META INFO -->
+            <div class="mb-2">
+                <span class="text-muted">
+                    {{ $insight->date->format('d/m/Y') }}
+                </span>
+                <span class="badge bg-beige text-uppercase ms-2">
+                    {{ __('ui.types.' . $insight->type) }}
+                </span>
+            </div>
+            <!-- TITOLO -->
+            <h1 class="display-5 mb-4">{{ $insight->title[app()->getLocale()] }}</h1>
+        </div>
     </div>
-
-    <!-- META INFO -->
-    <div class="mb-2">
-        <span class="text-muted">
-            {{ $insight->date->format('d/m/Y') }}
-        </span>
-        <span class="badge bg-dark text-uppercase ms-2">
-            {{ $insight->type }}
-        </span>
-    </div>
-
-    <!-- TITOLO -->
-    <h1 class="display-5 mb-4">{{ $insight->title }}</h1>
 
     <!-- IMMAGINI (se presenti) -->
-    @if($insight->images && count($insight->images) > 0)
-        <div class="row mb-5">
-            @foreach($insight->images as $image)
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <img src="{{ asset('storage/' . $image) }}"
-                         class="img-fluid rounded shadow"
-                         style="width:100%; height:260px; object-fit:cover;"
-                         alt="{{ $insight->title }}">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            @if($insight->images && count($insight->images) > 0)
+                <div class="mb-5" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="400">
+                    <div id="insightCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($insight->images as $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ asset('storage/' . $image) }}" 
+                                        class="d-block w-100 rounded shadow" 
+                                        style="height: 400px; object-fit: contain;"
+                                        alt="{{ $insight->title[app()->getLocale()] }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        @if (count($insight->images) > 1)
+                            <button class="carousel-control-prev" type="button" data-bs-target="#insightCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#insightCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        @endif
+                    </div>
                 </div>
-            @endforeach
+            @endif
         </div>
-    @endif
-
-    <!-- DESCRIZIONE -->
-    <div class="mb-5">
-        <h3>{{ __('ui.description') }}</h3>
-        <p class="lead">{!! nl2br(e($insight->description)) !!}</p>
     </div>
+    
 
-    <!-- VISIT LINK -->
-    @if($insight->visit_link)
-    <div class="text-center my-5">
-        <a href="{{ $insight->visit_link }}" target="_blank" class="btn btn-secondary btn-lg">
-            {{ __('ui.read_on_site') }}
-        </a>
+    <div class="row justify-content-center">
+        <!-- DESCRIZIONE -->
+        <div class="mb-5 col-8">
+            {{-- <h3>{{ __('ui.description') }}</h3> --}}
+            <p class="fs-6 text-justify">{!! nl2br($insight->description[app()->getLocale()]) !!}</p>
+            <!-- VISIT LINK -->
+            @if($insight->visit_link)
+            <div class="text-start mt-5">
+                <a href="{{ $insight->visit_link }}" target="_blank" class="btn-underline fs-5">
+                    {{ __('ui.read_on_site') }}
+                </a>
+            </div>
+            @endif
+        </div>
     </div>
-    @endif
+    
+
 
         <!-- BOTTONI MODIFICA/ELIMINA -->
     @auth
-    <div class="mb-4">
+    <div class="my-4">
         <a href="{{ route('insight.edit', $insight) }}" class="btn btn-warning me-2">Modifica {{ $insight->type }}</a>
         <form action="{{ route('insight.destroy', $insight) }}" method="POST" class="d-inline"
               onsubmit="return confirm('Sei sicuro di voler eliminare questa {{ $insight->type }}?');">
@@ -62,45 +85,80 @@
     </div>
     @endauth
 
+    <!-- DIVISORE -->
+    <div class="container px-0">
+        <hr class="my-5">
+    </div>
+
     <!-- ARTICOLI CORRELATI -->
     <div class="mb-5">
-        <h3 class="mb-4">{{ __('ui.related_articles') }}</h3>
-        <div class="row">
-            @foreach($relatedItems as $item)
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100 shadow">
-                        @if($item->images && count($item->images) > 0)
-                            <img src="{{ asset('storage/' . $item->images[0]) }}" class="card-img-top" style="height:200px; object-fit:cover;">
-                        @elseif (!$item->images && $item->type === 'news')
-                            <img src="{{ asset('images/news.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;"
-                                alt="News">
-                        @elseif (!$item->images && $item->type === 'insight')
-                            <img src="{{ asset('images/insight.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;" 
-                                alt="Insight">
-                        @else
-                            <img src="{{ asset('images/interview.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;" 
-                                alt="Default">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->title }}</h5>
-                            @if(property_exists($item, 'execution_year') && $item->execution_year)
-                                <p class="text-muted mb-1">{{ $item->execution_year }}</p>
-                            @endif
-                            @if(property_exists($item, 'type') && $item->type)
-                                <span class="badge bg-info">{{ ucfirst($item->type) }}</span>
-                            @endif
-                            <a href="{{ property_exists($item, 'type') ? route('insight.show', $item) : route('project.show', $item) }}" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <h3 class="mb-5">{{ __('ui.related_articles') }}</h3>
 
-            @if(count($relatedItems) == 0)
-                <p class="text-muted">{{ __('ui.no_related_articles') }}</p>
-            @endif
+        <div class="swiper related-swiper">
+            <div class="swiper-wrapper">
+
+                @forelse($relatedItems as $item)
+                    <div class="swiper-slide">
+
+                        <a href="{{ $item instanceof \App\Models\Project ? route('project.show', $item->id) : route('insight.show', $item->id) }}"
+                        class="text-decoration-none d-block h-100">
+
+                            <div class="insight-card-home h-100" data-aos="zoom-in">
+                                <div class="insight-card-inner">
+
+                                    @if($item->images && count($item->images) > 0)
+                                        <img src="{{ asset('storage/' . $item->images[0]) }}"
+                                        class="insight-image-home"
+                                            alt="{{ $item->title[app()->getLocale()] }}">
+                                    @elseif (!$item->images && $item->type === 'news')
+                                        <img src="{{ asset('images/news.jpg') }}" 
+                                            class="insight-image-home"
+                                            alt="News">
+                                    @elseif (!$item->images && $item->type === 'insight')
+                                        <img src="{{ asset('images/insight.jpg') }}" 
+                                            class="insight-image-home" 
+                                            alt="Insight">
+                                    @else
+                                        <img src="{{ asset('images/interview.jpg') }}" 
+                                            class="insight-image-home"
+                                            alt="Interview">
+                                    @endif
+                                    <div class="insight-content-home">
+                                        <small class="text-muted d-block">
+                                            @if($item instanceof \App\Models\Insight && $item->date)
+                                                {{ $item->date->format('d M Y') }}
+                                            @endif
+                                            @if($item instanceof \App\Models\Project && $item->execution_year)
+                                                {{ $item->execution_year }}
+                                                @endif
+                                        </small>
+                                        <div class="row my-1">
+                                            <div class="col-6">
+                                                @if($item instanceof \App\Models\Insight && $item->type)
+                                                    <span class="badge bg-beige text-uppercase">{{ __('ui.types.' . $item->type) }}</span>
+                                                @else
+                                                    <span class="badge bg-beige text-uppercase">{{ __('ui.project') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <h5 class="insight-title">{{ $item->title[app()->getLocale()] }}</h5>
+                                        <span class="read-more mt-auto">{{ __('ui.read_more') }} →</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @empty
+                    <p class="text-center text-muted">{{ __('ui.no_related_articles') }}</p>
+                @endforelse
+
+            </div>
+
+            <!-- frecce -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
 </div>

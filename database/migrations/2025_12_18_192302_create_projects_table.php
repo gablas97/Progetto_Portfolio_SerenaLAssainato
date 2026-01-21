@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('subtitle')->nullable();
-            $table->text('description');
-            $table->string('location')->nullable();
+            $table->json('title');
+            $table->json('subtitle')->nullable();
+            $table->json('description');
+            $table->json('location')->nullable();
             $table->json('images'); // Salva array di percorsi immagini
             $table->year('execution_year')->nullable();
             $table->json('categories'); // Salva array di categorie

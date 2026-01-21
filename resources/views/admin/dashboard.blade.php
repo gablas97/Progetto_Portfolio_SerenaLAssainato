@@ -42,14 +42,14 @@
                             <div class="overflow-hidden">
                                 <img src="{{ asset('storage/' . $project->images[0]) }}" 
                                 class="card-img-top t-05" 
-                                alt="{{ $project->title }} COVER"
+                                alt="{{ $project->title['it'] }} COVER"
                                 style="height: 200px; object-fit: cover;">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title text-dark">{{ $project->title }}</h5>
+                                <h5 class="card-title text-dark">{{ $project->title['it'] }}</h5>
                                 @if($project->description)
                                 <p class="card-text text-muted">
-                                    {{ Str::limit($project->description, 100) }}
+                                    {{ Str::limit($project->description['it'], 100) }}
                                 </p>
                                 @endif
                             </div>
@@ -90,7 +90,7 @@
                             @if($insight->images)
                             <img src="{{ asset('storage/' . $insight->images[0]) }}" 
                                 class="card-img-top t-05" 
-                                alt="{{ $insight->title }} COVER"
+                                alt="{{ $insight->title['it'] }} COVER"
                                 style="height: 200px; object-fit: cover;">
                             @else
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" 
@@ -99,10 +99,10 @@
                             </div>
                             @endif
                             <div class="card-body">
-                                <h5 class="card-title text-dark">{{ $insight->title }}</h5>
-                                @if($insight->description)
+                                <h5 class="card-title text-dark">{{ $insight->title['it'] }}</h5>
+                                @if($insight->description['it'])
                                 <p class="card-text text-muted">
-                                    {{ Str::limit($insight->description, 100) }}
+                                    {{ Str::limit($insight->description['it'], 100) }}
                                 </p>
                                 @endif
                                 <p class="card-text text-dark">

@@ -12,44 +12,77 @@
                         @csrf
                         @method('PUT')
 
-                        <!-- TITOLO -->
-                        <div class="mb-3">
-                            <label class="form-label">Titolo <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                   name="title" value="{{ old('title', $project->title) }}" required>
-                            @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <!-- LINGUE -->
+                        <ul class="nav nav-tabs mb-4" id="langTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it">
+                                    Italiano
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en">
+                                    English
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr">
+                                    Français
+                                </button>
+                            </li>
+                        </ul>
 
-                        <!-- SOTTOTITOLO -->
-                        <div class="mb-3">
-                            <label class="form-label">Sottotitolo</label>
-                            <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
-                                   name="subtitle" value="{{ old('subtitle', $project->subtitle) }}">
-                            @error('subtitle')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <div class="tab-content">
 
-                        <!-- DESCRIZIONE -->
-                        <div class="mb-3">
-                            <label class="form-label">Descrizione <span class="text-danger">*</span></label>
-                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                      name="description" rows="5" required>{{ old('description', $project->description) }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                            @foreach (['it' => 'Italiano', 'en' => 'English', 'fr' => 'Français'] as $lang => $label)
+                                <div class="tab-pane fade {{ $lang === 'it' ? 'show active' : '' }}" id="lang-{{ $lang }}">
 
-                        <!-- LOCATION -->
-                        <div class="mb-3">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-control @error('location') is-invalid @enderror"
-                                   name="location" value="{{ old('location', $project->location) }}">
-                            @error('location')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                    <!-- TITOLO -->
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Titolo ({{ strtoupper($lang) }}) <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text"
+                                            class="form-control @error('title.'.$lang) is-invalid @enderror"
+                                            name="title[{{ $lang }}]"
+                                            value="{{ old('title.'.$lang, $project->{'title.'.$lang}) }}"
+                                            required>
+                                        @error('title.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+
+                                    <!-- SOTTOTITOLO -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Sottotitolo ({{ strtoupper($lang) }})</label>
+                                        <input type="text"
+                                            class="form-control @error('subtitle.'.$lang) is-invalid @enderror"
+                                            name="subtitle[{{ $lang }}]"
+                                            value="{{ old('subtitle.'.$lang, $project->{'subtitle.'.$lang}) }}">
+                                        @error('subtitle.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+
+                                    <!-- DESCRIZIONE -->
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Descrizione ({{ strtoupper($lang) }}) <span class="text-danger">*</span>
+                                        </label>
+                                        <textarea class="form-control @error('description.'.$lang) is-invalid @enderror"
+                                                name="description[{{ $lang }}]"
+                                                rows="5"
+                                                required>{{ old('description.'.$lang, $project->{'description.'.$lang}) }}</textarea>
+                                        @error('description.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+
+                                    <!-- LOCATION -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Location ({{ strtoupper($lang) }})</label>
+                                        <input type="text"
+                                            class="form-control @error('location.'.$lang) is-invalid @enderror"
+                                            name="location[{{ $lang }}]"
+                                            value="{{ old('location.'.$lang, $project->{'location.'.$lang}) }}">
+                                        @error('location.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+
+                                </div>
+                            @endforeach
                         </div>
 
                         <!-- ANNO ESECUZIONE -->

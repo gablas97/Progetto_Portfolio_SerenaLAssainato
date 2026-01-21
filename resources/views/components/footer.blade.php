@@ -24,12 +24,11 @@
                         </svg>
                     </a>
 
-                    <!-- Pinterest -->
-                    <a href="https://pinterest.com/serenalassainato" target="_blank" class="social-icon mx-3" aria-label="Pinterest">
+                    <!-- Email -->
+                    <a href="https://mail.google.com/mail/?view=cm&to=arch.serenal@gmail.com" target="_blank" class="social-icon mx-3" aria-label="Email">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M8.5 14.5c.5 1.5 2.5 2.5 4 2.5 3 0 5.5-2.5 5.5-5.5S15.5 6 12.5 6c-2.5 0-4.5 1.5-5 3.5"/>
-                            <path d="M12 17v-8"/>
+                            <path d="M2 6l10 7 10-7"/>
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
                         </svg>
                     </a>
 
@@ -44,7 +43,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <p class="copyright mb-0">
-                    Copyright © 2026 | Website created by <a href="#" class="creator-link">Gabriele L'Assainato</a>
+                    Copyright © 2026 | Website created by <a href="https://mail.google.com/mail/?view=cm&to=gablas97@gmail.com" target="_blank" class="creator-link">Gabriele L'Assainato</a>
                 </p>
             </div>
         </div>

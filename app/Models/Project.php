@@ -17,6 +17,10 @@ class Project extends Model
     ];
 
     protected $casts = [
+        'title' => 'array',
+        'subtitle' => 'array',
+        'description' => 'array',
+        'location' => 'array',
         'images' => 'array',
         'execution_year' => 'integer',
         'categories' => 'array',

@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('insights', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
+            $table->json('title');
+            $table->json('description');
             $table->date('date');
             $table->json('images')->nullable();
             $table->json('categories');

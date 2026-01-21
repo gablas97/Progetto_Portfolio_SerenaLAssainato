@@ -60,54 +60,38 @@
             <div class="col-lg-8 offset-lg-2">
                 
                 <div class="text-center mb-5">
-                    <h2 class="display-6 mb-3">{{ __('ui.get_in_touch') }}</h2>
-                    <p class="text-muted">{{ __('ui.contact_subtitle') }}</p>
+                    <h2 class="display-6 mb-3" data-aos="fade-up">{{ __('ui.get_in_touch') }}</h2>
+                    <p class="text-muted" data-aos="fade-up" data-aos-delay="200">{{ __('ui.contact_subtitle') }}</p>
                 </div>
 
                 <!-- Success Message -->
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Successo!</strong> {{ session('success') }}
+                        {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
 
                 <!-- Contact Form -->
-                <div class="card shadow-lg border-0">
+                <div class="card shadow-lg border-0" data-aos="zoom-in">
                     <div class="card-body p-4 p-md-5">
                         <form action="{{ route('contact.send') }}" method="POST">
                             @csrf
 
-                            <!-- Nome e Cognome -->
-                            <div class="row mb-4">
-                                <div class="col-md-6 mb-4 mb-md-0">
-                                    <label for="first_name" class="form-label">{{ __('ui.first_name')}} <span class="text-danger">*</span></label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control @error('first_name') is-invalid @enderror" 
-                                        id="first_name" 
-                                        name="first_name" 
-                                        value="{{ old('first_name') }}" 
-                                        required
-                                    >
-                                    @error('first_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="last_name" class="form-label">{{ __('ui.last_name') }} <span class="text-danger">*</span></label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control @error('last_name') is-invalid @enderror" 
-                                        id="last_name" 
-                                        name="last_name" 
-                                        value="{{ old('last_name') }}" 
-                                        required
-                                    >
-                                    @error('last_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                            <!-- Nome -->
+                            <div class="mb-4">
+                                <label for="name" class="form-label">{{ __('ui.name')}} <span class="text-danger">*</span></label>
+                                <input 
+                                    type="text" 
+                                    class="form-control @error('name') is-invalid @enderror" 
+                                    id="name" 
+                                    name="name" 
+                                    value="{{ old('name') }}" 
+                                    required
+                                >
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Email -->
@@ -143,7 +127,7 @@
 
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button type="submit" class="btn btn-dark btn-lg px-5 py-3 text-uppercase">
+                                <button type="submit" class="btn btn-dark-custom btn-sm px-5 py-3 text-uppercase">
                                     {{ __('ui.send_message') }}
                                 </button>
                             </div>
@@ -151,7 +135,7 @@
                         </form>
                     </div>
                 </div>
-
+                
             </div>
         </section>
 

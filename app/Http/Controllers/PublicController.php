@@ -14,8 +14,8 @@ class PublicController extends Controller
 {
     public function homepage()
     {
-        $latestProjects = Project::latest()->take(4)->get();
-        $latestInsights = Insight::latest()->take(4)->get();
+        $latestProjects = Project::latest()->take(3)->get();
+        $latestInsights = Insight::latest()->take(3)->get();
         
         return view('welcome', compact('latestProjects', 'latestInsights'));
     }
@@ -34,13 +34,11 @@ class PublicController extends Controller
     {
         // Validazione
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string|min:10',
         ], [
-            'first_name.required' => 'Il nome è obbligatorio',
-            'last_name.required' => 'Il cognome è obbligatorio',
+            'name.required' => 'Il nome è obbligatorio',
             'email.required' => 'L\'email è obbligatoria',
             'email.email' => 'Inserisci un\'email valida',
             'message.required' => 'Il messaggio è obbligatorio',
@@ -49,8 +47,7 @@ class PublicController extends Controller
 
         // Dati per l'email
         $data = [
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
+            'name' => $validated['name'],
             'email' => $validated['email'],
             'user_message' => $validated['message'],
         ];
@@ -58,11 +55,11 @@ class PublicController extends Controller
         // Invia email
         Mail::send('emails.contact', $data, function($message) use ($data) {
             $message->to('arch.serenal@gmail.com')
-                    ->subject('Nuovo messaggio da ' . $data['first_name'] . ' ' . $data['last_name'])
+                    ->subject('Nuovo messaggio da ' . $data['name'])
                     ->replyTo($data['email']);
         });
 
-        return redirect()->back()->with('success', 'Il tuo messaggio è stato inviato con successo! Ti risponderò al più presto.');
+        return redirect()->back()->with('success', __('ui.contact_success'));
     }
 
     public function setLanguage($lang)

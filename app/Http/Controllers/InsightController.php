@@ -11,7 +11,7 @@ class InsightController extends Controller
 {
     public function insight_index()
     {
-        $insights = Insight::latest('date')->get();
+        $insights = Insight::latest('created_at')->get();
         return view('insights.index', compact('insights'));
     }
 
@@ -23,8 +23,14 @@ class InsightController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title.it' => 'required|string',
+            'title.en' => 'required|string|max:255',
+            'title.fr' => 'required|string|max:255',
+
+            'description.it' => 'required|string',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+
             'date' => 'required|date',
             'images' => 'nullable|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
@@ -48,7 +54,7 @@ class InsightController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard')
-            ->with('success', "Contenuto $insight->title creato con successo!", compact('insight'));
+            ->with('success', 'Contenuto "' . $insight->title['it'] . '" creato con successo!', compact('insight'));
     }
 
     public function show(Insight $insight)
@@ -69,7 +75,7 @@ class InsightController extends Controller
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
                             ->sortByDesc('created_at')
-                            ->take(6);
+                            ->values();
 
         return view('insights.show', compact('insight', 'relatedItems'));
     }
@@ -82,8 +88,14 @@ class InsightController extends Controller
     public function update(Request $request, Insight $insight)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title.it' => 'required|string',
+            'title.en' => 'required|string|max:255',
+            'title.fr' => 'required|string|max:255',
+
+            'description.it' => 'required|string',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+
             'date' => 'required|date',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
@@ -107,19 +119,20 @@ class InsightController extends Controller
             'images' => $imagePaths,
         ]);
 
-        return redirect()->route('insight.index')->with('success', "Contenuto $insight->title aggiornato con successo!");
+        return redirect()->route('insight.index')->with('success', 'Contenuto "' . $insight->title['it'] . '" aggiornato con successo!');
     }
 
     public function destroy(Insight $insight)
     {
         foreach ($insight->images ?? [] as $image) {
             $fullPath = public_path('storage/' . $image);
+            
             if (File::exists($fullPath)) {
                 File::delete($fullPath);
             }
         }
 
         $insight->delete();
-        return redirect()->route('insight.index')->with('success', "Contenuto $insight->title eliminato con successo!");
+        return redirect()->route('insight.index')->with('success', 'Contenuto "' . $insight->title['it'] . '" eliminato con successo!');
     }
 }

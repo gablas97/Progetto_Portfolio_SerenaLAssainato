@@ -20,12 +20,34 @@ a {
     color: inherit;
 }
 
+.text-justify {
+    text-align: justify;
+    hyphens: auto;
+}
+
+.nero {
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+}
+
+.custom-link {
+    text-decoration: underline;
+}
+
 .bg-p {
     background-color: var(--color-primary);
 }
 
 .bg-s {
     background-color: var(--color-secondary);
+}
+
+.bg-dark-custom {
+    background-color: rgb(80, 80, 80);
+}
+
+.bg-beige {
+    background-color: #b6aea7;
 }
 
 .text-p {
@@ -42,6 +64,67 @@ a {
 
 .t-1 {
     transition: 1s;
+}
+
+/* BOTTONI */
+.btn-outline-dark {
+    border: 1px solid rgb(80, 80, 80);
+    color: rgb(80, 80, 80);
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline-dark:hover {
+    background-color: rgb(80, 80, 80);
+    color: var(--color-primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-underline {
+    position: relative;
+    background: none;
+    border: none;
+    color: rgb(80, 80, 80);
+    font-weight: 600;
+    padding: 0.25rem 0;
+    cursor: pointer;
+}
+
+.btn-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(80, 80, 80);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+/* Hover */
+.btn-underline:hover::after {
+    transform: scaleX(1);
+}
+
+/* Optional: leggero cambio colore */
+.btn-underline:hover {
+    color: #000;
+}
+
+.btn-dark-custom {
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 10px;
+    background-color: rgb(80, 80, 80);
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-dark-custom:hover {
+    background-color: rgba(80, 80, 80, 0.70);
+    color: var(--color-primary);
 }
 
 /* NAVBAR */
@@ -75,7 +158,6 @@ ul a:hover {
     font-size: 0.85rem;
 }
 
-/* Menu */
 .language-dropdown .dropdown-menu {
     border-radius: 0.75rem;
     border: none;
@@ -83,7 +165,6 @@ ul a:hover {
     min-width: 160px;
 }
 
-/* Item */
 .language-dropdown .dropdown-item {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
@@ -94,7 +175,6 @@ ul a:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
 
-/* Animazione apertura */
 .animate-dropdown {
     animation: dropdownFade 0.4s ease-out;
 }
@@ -108,6 +188,35 @@ ul a:hover {
     }
 }
 
+.custom-toggler {
+    border: none;
+    background: transparent;
+    padding: 0;
+    width: 32px;
+    height: 22px;
+    position: relative;
+}
+
+.custom-toggler span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    margin: 6px 0;
+    transition: all 0.35s ease;
+}
+
+.custom-toggler[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.custom-toggler[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.custom-toggler[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
 
 /* HOMEPAGE */
 .hero {
@@ -174,12 +283,13 @@ ul a:hover {
     height: 100%;
     transition: all 0.3s ease;
     display: flex;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     flex-direction: column;
+    overflow: hidden;
 }
 
-.insight-card-home:hover {
-    transform: translateY(-5px);
+.home-animation:hover {
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
 }
 
 .insight-image-home {
@@ -206,32 +316,11 @@ ul a:hover {
     line-height: 1.4;
 }
 
-.insight-excerpt {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    flex-grow: 1;
-}
-
 .read-more {
     color: var(--color-secondary);
     font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.3s;
-}
-
-/* BOTTONI */
-.btn-outline-dark {
-    border: 2px solid var(--color-secondary);
-    color: var(--color-secondary);
-    letter-spacing: 2px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-outline-dark:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* PROJECTS */
@@ -280,7 +369,13 @@ ul a:hover {
   cursor: pointer;
 }
 
-.project-card {
+.transition-col {
+    transition: all 0.5s ease;
+}
+
+/* INDEX CARDS */
+
+.index-card {
     position: relative;
     overflow: hidden;
     border-radius: 0;
@@ -288,46 +383,42 @@ ul a:hover {
     display: block;
 }
 
-.project-image {
+.index-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-.project-title-overlay {
+.index-title-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(42, 42, 42, 0.9);
-    color: var(--color-primary);
+    background-color: rgba(255, 255, 255, 0.507);
+    color: var(--color-secondary);
     padding: 1.5rem;
     transform: translateY(100%);
     transition: transform 0.5s ease;
 }
 
-.project-title-overlay h5 {
+.index-title-overlay h5 {
     color: var(--color-primary);
     font-family: var(--text-title);
     font-weight: 600;
     letter-spacing: 1px;
 }
 
-.project-card:hover .project-image {
+.index-card:hover .index-image {
     transform: scale(1.05);
     filter: brightness(0.8);
 }
 
-.project-card:hover .project-title-overlay {
+.index-card:hover .index-title-overlay {
     transform: translateY(0);
 }
 
-.transition-col {
-    transition: all 0.5s ease;
-}
-
-/* CONTACTS PAGE */
+/* CONTACTS */
 .contact-item {
     padding: 2rem 1rem;
     transition: all 0.3s;
@@ -357,6 +448,32 @@ ul a:hover {
     letter-spacing: 2px;
     font-size: 0.9rem;
     color: var(--color-secondary);
+}
+
+/* SWIPER STYLES */
+.related-swiper {
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.related-swiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+.related-swiper .swiper-slide {
+    height: auto;
+    background: transparent;
+}
+
+.related-swiper .swiper {
+    overflow: visible;
+}
+
+.related-swiper .swiper-button-next,
+.related-swiper .swiper-button-prev {
+    color: rgb(80,80,80);
 }
 
 /* FOOTER STYLES */
@@ -426,5 +543,9 @@ ul a:hover {
     .social-icon svg {
         width: 28px;
         height: 28px;
+    }
+
+    .about-me {
+        text-align: center;
     }
 }

@@ -24,7 +24,4 @@
 - Italiano
 
 ### Da fare
-1. Controllare il design di tutto il sito con Serena
-2. Inserire la animazioni (libreria AoS)
-3. Gestire il responsive
-4. Controllare le traduzioni
+1. Adattare tutto ai vari schermi

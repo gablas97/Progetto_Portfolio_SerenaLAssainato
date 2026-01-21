@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function project_index()
     {
-        $projects = Project::latest()->get();
+        $projects = Project::latest('created_at')->get();
         return view('projects.index', compact('projects'));
     }
 
@@ -24,10 +24,22 @@ class ProjectController extends Controller
     {
         // Validazione
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'location' => 'nullable|string|max:255',
+            'title.it' => 'required|string',
+            'title.en' => 'required|string|max:255',
+            'title.fr' => 'required|string|max:255',
+
+            'subtitle.it' => 'required|string|max:255',
+            'subtitle.en' => 'required|string|max:255',
+            'subtitle.fr' => 'required|string|max:255',
+
+            'description.it' => 'required|string',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+
+            'location.it' => 'required|string|max:255',
+            'location.en' => 'required|string|max:255',
+            'location.fr' => 'required|string|max:255',
+            
             'images' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'execution_year' => 'nullable|integer|digits:4|min:1900|max:' . date('Y'),
@@ -63,7 +75,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard')
-            ->with('success', "Progetto $project->title creato con successo!", compact('project'));
+            ->with('success', 'Progetto "' . $project->title['it'] . '" creato con successo!', compact('project'));
     }
 
     public function show(Project $project)
@@ -84,7 +96,7 @@ class ProjectController extends Controller
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
                             ->sortByDesc('created_at')
-                            ->take(6);
+                            ->values();
 
         return view('projects.show', compact('project', 'relatedItems'));
     }
@@ -98,10 +110,22 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'location' => 'nullable|string|max:255',
+            'title.it' => 'required|string',
+            'title.en' => 'required|string|max:255',
+            'title.fr' => 'required|string|max:255',
+
+            'subtitle.it' => 'required|string|max:255',
+            'subtitle.en' => 'required|string|max:255',
+            'subtitle.fr' => 'required|string|max:255',
+
+            'description.it' => 'required|string',
+            'description.en' => 'required|string',
+            'description.fr' => 'required|string',
+
+            'location.it' => 'required|string|max:255',
+            'location.en' => 'required|string|max:255',
+            'location.fr' => 'required|string|max:255',
+
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'execution_year' => 'nullable|integer|digits:4',
@@ -130,7 +154,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('project.index')
-            ->with('success', "Progetto $project->title aggiornato con successo!");
+            ->with('success', 'Progetto "' . $project->title['it'] . '" aggiornato con successo!');
     }
 
     public function destroy(Project $project)
@@ -147,6 +171,6 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('project.index')
-            ->with('success', "Progetto $project->title eliminato con successo!");
+            ->with('success', 'Progetto "' . $project->title['it'] . '" eliminato con successo!');
     }
 }

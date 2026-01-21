@@ -1,13 +1,40 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Swiper from 'swiper';
+import { Navigation, FreeMode } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 // Inizializza AOS
 AOS.init({
     duration: 800,
     easing: 'ease-in-out-cubic',
-    once: true,
-    disable: 'mobile',
+    once: false,
     startEvent: 'load'
+});
+
+// Inizializza Swiper
+document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.related-swiper', {
+        modules: [Navigation, FreeMode],
+        slidesPerView: 1,
+        spaceBetween: 24,
+        grabCursor: true,
+        freeMode: true,          // ← SCROLL CONTINUO
+        watchOverflow: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        }
+    });
 });
 
 // Funzionalità di toggle per la descrizione del progetto

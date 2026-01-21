@@ -8,16 +8,58 @@
             <form action="{{ route('insight.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="mb-3">
-                    <label class="form-label">Titolo <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required>
-                    @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                </div>
+                <!-- LINGUE -->
+                <ul class="nav nav-tabs mb-4" id="langTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it" type="button">
+                            Italiano
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en" type="button">
+                            English
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr" type="button">
+                            Français
+                        </button>
+                    </li>
+                </ul>
 
-                <div class="mb-3">
-                    <label class="form-label">Descrizione <span class="text-danger">*</span></label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" required>{{ old('description') }}</textarea>
-                    @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div class="tab-content">
+
+                    @foreach (['it' => 'Italiano', 'en' => 'English', 'fr' => 'Français'] as $lang => $label)
+                        <div class="tab-pane fade {{ $lang === 'it' ? 'show active' : '' }}" id="lang-{{ $lang }}">
+
+                            <!-- TITOLO -->
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Titolo ({{ strtoupper($lang) }}) <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                    class="form-control @error('title.'.$lang) is-invalid @enderror"
+                                    name="title[{{ $lang }}]"
+                                    value="{{ old('title.'.$lang) }}"
+                                    required>
+                                @error('title.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+
+                            <!-- DESCRIZIONE -->
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Descrizione ({{ strtoupper($lang) }}) <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control @error('description.'.$lang) is-invalid @enderror"
+                                        name="description[{{ $lang }}]"
+                                        rows="5"
+                                        required>{{ old('description.'.$lang) }}</textarea>
+                                @error('description.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+
+                        </div>
+                    @endforeach
+
                 </div>
 
                 <div class="mb-3">

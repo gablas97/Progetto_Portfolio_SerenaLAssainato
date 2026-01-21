@@ -18,6 +18,8 @@ class Insight extends Model
 
     protected $casts = [
         'date' => 'date',
+        'title' => 'array',
+        'description' => 'array',
         'images' => 'array',
         'categories' => 'array',
     ];

@@ -3,52 +3,54 @@
 <div class="container py-5">
 
     <!-- TOGGLE DESCRIZIONE -->
-    <div class="row justify-content-center">
-        <a href="{{ route('project.index') }}" class="col-2 btn btn-outline-dark me-auto mb-3">{{ __('ui.back') }}</a>
-        <button class="col-1 btn btn-outline-dark ms-auto mb-3" id="toggleDescBtn">+</button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ route('project.index') }}" class="btn-underline mb-3 me-auto" data-aos="zoom-in" data-aos-delay="800">{{ __('ui.back') }}</a>
+            <button class="btn btn-outline-dark ms-auto mb-3 fs-4 py-0" id="toggleDescBtn" data-aos="zoom-in" data-aos-delay="800">+</button>
     </div>
     <!-- CAROSELLO + INFO -->
-    <div class="row my-5 align-items-start" id="projectMainRow">
+    <div class="row align-items-start" id="projectMainRow">
         <!-- CAROSELLO -->
         <div class="col-md-8 transition-col" id="carouselCol">
-            <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="400">
                 <div class="carousel-inner">
                     @foreach($project->images as $image)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $image) }}" 
                                 class="d-block w-100 rounded shadow" 
-                                style="height: 400px; object-fit: cover;"
-                                alt="{{ $project->title }}">
+                                style="height: 500px; object-fit: contain;"
+                                alt="{{ $project->title[app()->getLocale()] }}">
                         </div>
                     @endforeach
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                @if (count($project->images) > 1)    
+                    <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                @endif
             </div>
         </div>
 
-        <div class="col-md-4 transition-col" id="infodescCol">
+        <div class="col-md-4 transition-col pe-lg-0" id="infodescCol">
             <!-- INFO PROGETTO -->
-            <div id="infoCol">            
-                <h1>{{ $project->title }}</h1>
+            <div id="infoCol" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">            
+                <h1>{{ $project->title[app()->getLocale()] }}</h1>
                 @if($project->subtitle)
-                    <h4 class="text-muted">{{ $project->subtitle }}</h4>
+                    <h4 class="text-muted mb-3">{{ $project->subtitle[app()->getLocale()] }}</h4>
                 @endif
                 @if($project->execution_year)
                     <p><strong>{{ __('ui.year') }}:</strong> {{ $project->execution_year }}</p>
                 @endif
                 @if($project->location)
-                    <p><strong>{{ __('ui.location') }}:</strong> {{ $project->location }}</p>
+                    <p><strong>{{ __('ui.location') }}:</strong> {{ $project->location[app()->getLocale()] }}</p>
                 @endif
                 @if($project->categories)
                     <p>
                         <strong>{{ __('ui.categories') }}:</strong>
                         @foreach($project->categories as $category)
-                            <span class="badge bg-secondary text-uppercase me-1">
+                            <span class="badge bg-beige text-uppercase me-1">
                                 {{ str_replace('_', ' ', $category) }}
                             </span>
                         @endforeach
@@ -57,10 +59,10 @@
             </div>
 
             <!-- DESCRIZIONE (inizialmente nascosta) -->
-            <div class="d-none" id="descriptionCol">
-                <h1>{{ $project->title }}</h1>
-                <h3>{{ __('ui.description') }}</h3>
-                <p class="lead">{!! nl2br(e($project->description)) !!}</p>
+            <div class="d-none pe-lg-0" id="descriptionCol">
+                <h1>{{ $project->title[app()->getLocale()] }}</h1>
+                {{-- <h3>{{ __('ui.description') }}</h3> --}}
+                <p class="fs-6 text-justify">{!! nl2br($project->description[app()->getLocale()]) !!}</p>
             </div>
         </div>
         
@@ -69,7 +71,7 @@
 
     <!-- BOTTONI MODIFICA/ELIMINA -->
     @auth
-    <div class="mb-4">
+    <div class="my-4">
         <a href="{{ route('project.edit', $project) }}" class="btn btn-warning me-2">Modifica Progetto</a>
         <form action="{{ route('project.destroy', $project) }}" method="POST" class="d-inline"
               onsubmit="return confirm('Sei sicuro di voler eliminare questo progetto?');">
@@ -80,45 +82,80 @@
     </div>
     @endauth
 
+    <!-- DIVISORE -->
+    <div class="container px-0">
+        <hr class="my-5">
+    </div>
+
     <!-- ARTICOLI CORRELATI -->
     <div class="mb-5">
-        <h3>{{ __('ui.related_articles') }}</h3>
-        <div class="row">
-            @foreach($relatedItems as $item)
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100 shadow">
-                        @if($item->images && count($item->images) > 0)
-                            <img src="{{ asset('storage/' . $item->images[0]) }}" class="card-img-top" style="height:200px; object-fit:cover;">
-                        @elseif (!$item->images && $item->type === 'news')
-                            <img src="{{ asset('images/news.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;"
-                                alt="News">
-                        @elseif (!$item->images && $item->type === 'insight')
-                            <img src="{{ asset('images/insight.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;" 
-                                alt="Insight">
-                        @else
-                            <img src="{{ asset('images/interview.jpg') }}" 
-                                class="card-img-top" style="height:200px; object-fit:cover;" 
-                                alt="Default">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->title }}</h5>
-                            @if(property_exists($item, 'execution_year') && $item->execution_year)
-                                <p class="text-muted mb-1">{{ $item->execution_year }}</p>
-                            @endif
-                            @if(property_exists($item, 'type') && $item->type)
-                                <span class="badge bg-info">{{ ucfirst($item->type) }}</span>
-                            @endif
-                            <a href="{{ property_exists($item, 'execution_year') ? route('project.show', $item) : route('insight.show', $item) }}" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <h3 class="mb-5">{{ __('ui.related_articles') }}</h3>
 
-            @if(count($relatedItems) == 0)
-                <p class="text-muted">{{ __('ui.no_related_articles') }}</p>
-            @endif
+        <div class="swiper related-swiper">
+            <div class="swiper-wrapper">
+
+                @forelse($relatedItems as $item)
+                    <div class="swiper-slide">
+
+                        <a href="{{ $item instanceof \App\Models\Project ? route('project.show', $item->id) : route('insight.show', $item->id) }}"
+                        class="text-decoration-none d-block h-100">
+
+                            <div class="insight-card-home h-100" data-aos="zoom-in">
+                                <div class="insight-card-inner">
+
+                                    @if($item->images && count($item->images) > 0)
+                                        <img src="{{ asset('storage/' . $item->images[0]) }}"
+                                        class="insight-image-home"
+                                            alt="{{ $item->title[app()->getLocale()] }}">
+                                    @elseif (!$item->images && $item->type === 'news')
+                                        <img src="{{ asset('images/news.jpg') }}" 
+                                            class="insight-image-home"
+                                            alt="News">
+                                    @elseif (!$item->images && $item->type === 'insight')
+                                        <img src="{{ asset('images/insight.jpg') }}" 
+                                            class="insight-image-home" 
+                                            alt="Insight">
+                                    @else
+                                        <img src="{{ asset('images/interview.jpg') }}" 
+                                            class="insight-image-home"
+                                            alt="Interview">
+                                    @endif
+                                    <div class="insight-content-home">
+                                        <small class="text-muted d-block">
+                                            @if($item instanceof \App\Models\Insight && $item->date)
+                                                {{ $item->date->format('d M Y') }}
+                                            @endif
+                                            @if($item instanceof \App\Models\Project && $item->execution_year)
+                                                {{ $item->execution_year }}
+                                                @endif
+                                        </small>
+                                        <div class="row my-1">
+                                            <div class="col-6">
+                                                @if($item instanceof \App\Models\Insight && $item->type)
+                                                    <span class="badge bg-beige text-uppercase">{{ __('ui.types.' . $item->type) }}</span>
+                                                @else
+                                                    <span class="badge bg-beige text-uppercase">{{ __('ui.project') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <h5 class="insight-title">{{ $item->title[app()->getLocale()] }}</h5>
+                                        <span class="read-more mt-auto">{{ __('ui.read_more') }} →</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @empty
+                    <p class="text-center text-muted">{{ __('ui.no_related_articles') }}</p>
+                @endforelse
+
+            </div>
+
+            <!-- frecce -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
 </div>

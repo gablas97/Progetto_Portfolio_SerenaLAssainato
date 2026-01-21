@@ -37,7 +37,7 @@
         </div>
         <div class="content">
             <div class="info">
-                <strong>Da:</strong> {{ $first_name }} {{ $last_name }}
+                <strong>Da:</strong> {{ $name }}
             </div>
             <div class="info">
                 <strong>Email:</strong> {{ $email }}
