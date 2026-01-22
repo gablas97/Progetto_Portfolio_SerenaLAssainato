@@ -10,14 +10,14 @@
     <section class="container py-5 my-5">
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3 text-uppercase" style="letter-spacing: 3px;" data-aos="fade-down">{{ __('ui.latest_projects') }}</h2>
-                <p class="text-muted" data-aos="fade-down" data-aos-delay="200">{{ __('ui.latest_projects_subtitle') }}</p>
+                <h2 class="display-5 mb-3 text-uppercase fade-down transition-2">{{ __('ui.latest_projects') }}</h2>
+                <p class="text-muted fade-down delay-400 transition-2">{{ __('ui.latest_projects_subtitle') }}</p>
             </div>
         </div>
 
         <div class="row mb-5 g-4 justify-content-center align-items-center">
             @forelse($latestProjects as $project)
-                <div class="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="1000">
+                <div class="col-12 col-md-6 col-lg-3 zoom-in delay-200 transition-2">
                     <a href="{{ route('project.show', $project->id) }}" class="text-decoration-none">
                         <div class="project-card-home">
                             <img src="{{ asset('storage/' . $project->images[0]) }}" 
@@ -64,14 +64,14 @@
     <section class="container py-5 my-5">
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3 text-uppercase" style="letter-spacing: 3px;" data-aos="fade-down">{{ __('ui.latest_news') }}</h2>
-                <p class="text-muted" data-aos="fade-down" data-aos-delay="200">{{ __('ui.latest_news_subtitle') }}</p>
+                <h2 class="display-5 mb-3 text-uppercase fade-down transition-2">{{ __('ui.latest_news') }}</h2>
+                <p class="text-muted fade-down delay-400 transition-2">{{ __('ui.latest_news_subtitle') }}</p>
             </div>
         </div>
 
         <div class="row g-4 justify-content-center align-items-center">
             @forelse($latestInsights as $insight)
-                <div class="col-12 col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="1000">
+                <div class="col-12 col-md-6 col-lg-3 zoom-in delay-200 transition-2">
                     <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
                         <div class="insight-card-home home-animation">
                             @if($insight->images)

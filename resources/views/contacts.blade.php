@@ -56,12 +56,12 @@
         </section> --}}
 
         <!-- SEZIONE CONTATTAMI -->
-        <section class="row">
+        <section class="row mb-5">
             <div class="col-lg-8 offset-lg-2">
                 
                 <div class="text-center mb-5">
-                    <h2 class="display-6 mb-3" data-aos="fade-up">{{ __('ui.get_in_touch') }}</h2>
-                    <p class="text-muted" data-aos="fade-up" data-aos-delay="200">{{ __('ui.contact_subtitle') }}</p>
+                    <h2 class="display-6 mb-3 fade-up transition-2">{{ __('ui.get_in_touch') }}</h2>
+                    <p class="text-muted fade-up transition-2">{{ __('ui.contact_subtitle') }}</p>
                 </div>
 
                 <!-- Success Message -->
@@ -73,7 +73,7 @@
                 @endif
 
                 <!-- Contact Form -->
-                <div class="card shadow-lg border-0" data-aos="zoom-in">
+                <div class="card shadow-lg border-0 zoom-in transition-2">
                     <div class="card-body p-4 p-md-5">
                         <form action="{{ route('contact.send') }}" method="POST">
                             @csrf
@@ -127,7 +127,7 @@
 
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button type="submit" class="btn btn-dark-custom btn-sm px-5 py-3 text-uppercase">
+                                <button type="submit" class="btn-underline btn-sm text-uppercase">
                                     {{ __('ui.send_message') }}
                                 </button>
                             </div>

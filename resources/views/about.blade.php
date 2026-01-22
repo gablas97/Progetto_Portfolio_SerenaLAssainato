@@ -54,7 +54,7 @@
                         <div class="col-md-2 cv-year">
                             <h4 class="fw-regular">2025</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down">
+                        <div class="col-md-10 cv-description fade-down">
                             <p class="mb-0">• {!!  __('ui.2025') !!}</p>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="col-md-2 cv-year">
                             <h4 class="fw-regular">2024</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="100">
+                        <div class="col-md-10 cv-description fade-down" style="--i:1">
                             <p class="mb-0">• {!!  __('ui.2024') !!}</p>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <div class="col-md-2 cv-year mt-auto">
                             <h4 class="fw-regular">2023</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="200">
+                        <div class="col-md-10 cv-description fade-down" style="--i:2">
                             <p class="mb-2">• {!!  __('ui.2023') !!}</p>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                         <div class="col-md-2 cv-year mt-auto">
                             <h4 class="fw-regular mb-lg-0">2022</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="300">
+                        <div class="col-md-10 cv-description fade-down" style="--i:3">
                             <p class="mb-2">• {!!  __('ui.2022_1') !!}</p>
                             <p class="mb-0">• {!!  __('ui.2022_2') !!}</p>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="col-md-2 cv-year mt-auto">
                             <h4 class="fw-regular mb-lg-0">2021</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="400">
+                        <div class="col-md-10 cv-description fade-down" style="--i:4">
                             <p class="mb-2">• {!!  __('ui.2021_1') !!}</p>
                             <p class="mb-0">• {!!  __('ui.2021_2') !!}</p>
                         </div>
@@ -106,7 +106,7 @@
                         <div class="col-md-2 cv-year">
                             <h4 class="fw-regular">2020</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="500">
+                        <div class="col-md-10 cv-description fade-down" style="--i:5">
                             <p class="mb-0">• {!!  __('ui.2020') !!}</p>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <div class="col-md-2 cv-year">
                             <h4 class="fw-regular">2019</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="600">
+                        <div class="col-md-10 cv-description fade-down" style="--i:6">
                             <p class="mb-0">• {!!  __('ui.2019') !!}</p>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                         <div class="col-md-2 cv-year">
                             <h4 class="fw-regular">2018</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="700">
+                        <div class="col-md-10 cv-description fade-down" style="--i:7">
                             <p class="mb-0">• {!!  __('ui.2018') !!}</p>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                         <div class="col-md-2 cv-year mt-auto">
                             <h4 class="fw-regular mb-lg-0">2016</h4>
                         </div>
-                        <div class="col-md-10 cv-description" data-aos="fade-down" data-aos-delay="800">
+                        <div class="col-md-10 cv-description fade-down" style="--i:8">
                             <p class="mb-2">• {!!  __('ui.2016_1') !!}</p>
                             <p class="mb-0">• {!!  __('ui.2016_2') !!}</p>
                         </div>

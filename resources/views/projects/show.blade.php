@@ -4,14 +4,14 @@
 
     <!-- TOGGLE DESCRIZIONE -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="{{ route('project.index') }}" class="btn-underline mb-3 me-auto" data-aos="zoom-in" data-aos-delay="800">{{ __('ui.back') }}</a>
-            <button class="btn btn-outline-dark ms-auto mb-3 fs-4 py-0" id="toggleDescBtn" data-aos="zoom-in" data-aos-delay="800">+</button>
+            <a href="{{ route('project.index') }}" class="btn-underline mb-3 me-auto zoom-in delay-800">{{ __('ui.back') }}</a>
+            <button class="btn btn-outline-dark ms-auto mb-3 fs-4 py-0 zoom-in delay-800" id="toggleDescBtn">+</button>
     </div>
     <!-- CAROSELLO + INFO -->
     <div class="row align-items-start" id="projectMainRow">
         <!-- CAROSELLO -->
         <div class="col-md-8 transition-col" id="carouselCol">
-            <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="400">
+            <div id="projectCarousel" class="carousel slide zoom-in delay-800 transition-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($project->images as $image)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
@@ -35,7 +35,7 @@
 
         <div class="col-md-4 transition-col pe-lg-0" id="infodescCol">
             <!-- INFO PROGETTO -->
-            <div id="infoCol" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">            
+            <div id="infoCol" class="fade-left delay-400 transition-2">            
                 <h1>{{ $project->title[app()->getLocale()] }}</h1>
                 @if($project->subtitle)
                     <h4 class="text-muted mb-3">{{ $project->subtitle[app()->getLocale()] }}</h4>
@@ -100,26 +100,27 @@
                         <a href="{{ $item instanceof \App\Models\Project ? route('project.show', $item->id) : route('insight.show', $item->id) }}"
                         class="text-decoration-none d-block h-100">
 
-                            <div class="insight-card-home h-100" data-aos="zoom-in">
+                            <div class="insight-card-home h-100 zoom-in transition-2">
                                 <div class="insight-card-inner">
-
-                                    @if($item->images && count($item->images) > 0)
-                                        <img src="{{ asset('storage/' . $item->images[0]) }}"
-                                        class="insight-image-home"
-                                            alt="{{ $item->title[app()->getLocale()] }}">
-                                    @elseif (!$item->images && $item->type === 'news')
-                                        <img src="{{ asset('images/news.jpg') }}" 
+                                    <div style="height: 200px;" class="overflow-hidden">
+                                        @if($item->images && count($item->images) > 0)
+                                            <img src="{{ asset('storage/' . $item->images[0]) }}"
                                             class="insight-image-home"
-                                            alt="News">
-                                    @elseif (!$item->images && $item->type === 'insight')
-                                        <img src="{{ asset('images/insight.jpg') }}" 
-                                            class="insight-image-home" 
-                                            alt="Insight">
-                                    @else
-                                        <img src="{{ asset('images/interview.jpg') }}" 
-                                            class="insight-image-home"
-                                            alt="Interview">
-                                    @endif
+                                                alt="{{ $item->title[app()->getLocale()] }}">
+                                        @elseif (!$item->images && $item->type === 'news')
+                                            <img src="{{ asset('images/news.jpg') }}" 
+                                                class="insight-image-home"
+                                                alt="News">
+                                        @elseif (!$item->images && $item->type === 'insight')
+                                            <img src="{{ asset('images/insight.jpg') }}" 
+                                                class="insight-image-home" 
+                                                alt="Insight">
+                                        @else
+                                            <img src="{{ asset('images/interview.jpg') }}" 
+                                                class="insight-image-home"
+                                                alt="Interview">
+                                        @endif
+                                    </div>
                                     <div class="insight-content-home">
                                         <small class="text-muted d-block">
                                             @if($item instanceof \App\Models\Insight && $item->date)

@@ -3,7 +3,7 @@
 <div class="container py-5">
 
     <!-- BOTTONE INDIETRO -->
-    <div class="row justify-content-center" data-aos="fade-down" data-aos-delay="800">
+    <div class="row justify-content-center fade-down delay-800">
         <div class="col-8">
             <div class="mb-4">
                 <a href="{{ route('insight.index') }}" class="btn-underline">{{ __('ui.back') }}</a>
@@ -27,7 +27,7 @@
     <div class="row justify-content-center">
         <div class="col-8">
             @if($insight->images && count($insight->images) > 0)
-                <div class="mb-5" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="400">
+                <div class="mb-5 zoom-in delay-400 transition-15">
                     <div id="insightCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach($insight->images as $image)
@@ -103,26 +103,27 @@
                         <a href="{{ $item instanceof \App\Models\Project ? route('project.show', $item->id) : route('insight.show', $item->id) }}"
                         class="text-decoration-none d-block h-100">
 
-                            <div class="insight-card-home h-100" data-aos="zoom-in">
+                            <div class="insight-card-home h-100 zoom-in">
                                 <div class="insight-card-inner">
-
-                                    @if($item->images && count($item->images) > 0)
-                                        <img src="{{ asset('storage/' . $item->images[0]) }}"
-                                        class="insight-image-home"
-                                            alt="{{ $item->title[app()->getLocale()] }}">
-                                    @elseif (!$item->images && $item->type === 'news')
-                                        <img src="{{ asset('images/news.jpg') }}" 
+                                    <div style="height: 200px;" class="overflow-hidden">
+                                        @if($item->images && count($item->images) > 0)
+                                            <img src="{{ asset('storage/' . $item->images[0]) }}"
                                             class="insight-image-home"
-                                            alt="News">
-                                    @elseif (!$item->images && $item->type === 'insight')
-                                        <img src="{{ asset('images/insight.jpg') }}" 
-                                            class="insight-image-home" 
-                                            alt="Insight">
-                                    @else
-                                        <img src="{{ asset('images/interview.jpg') }}" 
-                                            class="insight-image-home"
-                                            alt="Interview">
-                                    @endif
+                                                alt="{{ $item->title[app()->getLocale()] }}">
+                                        @elseif (!$item->images && $item->type === 'news')
+                                            <img src="{{ asset('images/news.jpg') }}" 
+                                                class="insight-image-home"
+                                                alt="News">
+                                        @elseif (!$item->images && $item->type === 'insight')
+                                            <img src="{{ asset('images/insight.jpg') }}" 
+                                                class="insight-image-home" 
+                                                alt="Insight">
+                                        @else
+                                            <img src="{{ asset('images/interview.jpg') }}" 
+                                                class="insight-image-home"
+                                                alt="Interview">
+                                        @endif
+                                    </div>
                                     <div class="insight-content-home">
                                         <small class="text-muted d-block">
                                             @if($item instanceof \App\Models\Insight && $item->date)

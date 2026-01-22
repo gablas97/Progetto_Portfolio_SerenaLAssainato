@@ -10,7 +10,7 @@
             @endif
             
             @forelse($insights as $insight)
-                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-right" data-aos-duration="1200">
+                <div class="col-12 col-md-6 col-lg-4 fade-right transition-2 d-flex justify-content-center">
                     <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
                         <div class="index-card">
                             @if($insight->images)

@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-md pt-5 {{ $attributes->get('class') }}">
+<nav class="navbar navbar-expand-md pt-5 mb-3 {{ $attributes->get('class') }}">
     <div class="container flex-column">
 
         <!-- LOGO -->
         <div class="text-center mb-3">
             <a href="{{ route('homepage') }}" class="navbar-brand m-0">
                 <h1 class="text-s fs-2 title-1 mb-0">.Serena</h1>
-                <h1 class="text-s fs-2 title-2">L’Assainato</h1>
+                <h1 class="text-s fs-2 title-2 mb-0">L’Assainato</h1>
             </a>
         </div>
 
@@ -22,7 +22,7 @@
 
         <!-- MENU -->
         <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
-            <ul class="navbar-nav align-items-center gap-lg-4 text-s pt-lg-4">
+            <ul class="navbar-nav align-items-center gap-lg-4 text-s">
 
                 <li class="nav-item text-uppercase">
                     <a href="{{ route('project.index') }}"

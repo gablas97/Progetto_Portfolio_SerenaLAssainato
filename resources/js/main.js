@@ -1,17 +1,8 @@
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import Swiper from 'swiper';
 import { Navigation, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-// Inizializza AOS
-AOS.init({
-    duration: 800,
-    easing: 'ease-in-out-cubic',
-    once: false,
-    startEvent: 'load'
-});
 
 // Inizializza Swiper
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
 // Funzionalità di toggle per la descrizione del progetto
 document.addEventListener('DOMContentLoaded', function() {
     const toggleBtn = document.getElementById('toggleDescBtn');
@@ -61,5 +53,32 @@ document.addEventListener('DOMContentLoaded', function() {
             descriptionCol.classList.add('d-none');
             toggleBtn.textContent = '+';
         }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll(
+        '.fade-up, .fade-down, .fade-left, .fade-right, .zoom-in'
+    );
+
+    if (!animatedElements.length) return;
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // UNA SOLA VOLTA
+                }
+            });
+        },
+        {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        }
+    );
+
+    requestAnimationFrame(() => {
+        animatedElements.forEach(el => observer.observe(el));
     });
 });
