@@ -13,7 +13,8 @@
         "laravel/fortify": "^1.33",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "outhebox/blade-flags": "^1.5"
+        "outhebox/blade-flags": "^1.5",
+        "spatie/laravel-sitemap": "^7.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
