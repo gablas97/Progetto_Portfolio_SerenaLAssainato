@@ -62,25 +62,43 @@
 
                 </div>
 
+                <!-- DATA -->
                 <div class="mb-3">
                     <label class="form-label">Data <span class="text-danger">*</span></label>
                     <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}" required>
                     @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- IMMAGINE COPERTINA -->
+                <div class="mb-3">
+                    <label class="form-label">Immagine Copertina</label>
+                    <input type="file"
+                        class="form-control @error('cover_image') is-invalid @enderror"
+                        name="cover_image"
+                        accept="image/*">
+                    @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <!-- IMMAGINI -->
                 <div class="mb-3">
                     <label class="form-label">Immagini</label>
-                    <input type="file" class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror" name="images[]" multiple accept="image/*">
+                    <input type="file"
+                            class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror"
+                            name="images[]"
+                            multiple
+                            accept="image/*">
                     @error('images')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     @error('images.*')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- LINK ARTICOLO -->
                 <div class="mb-3">
                     <label class="form-label">Link Articolo</label>
                     <input type="url" class="form-control @error('visit_link') is-invalid @enderror" name="visit_link" value="{{ old('visit_link') }}">
                     @error('visit_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- TIPO -->
                 <div class="mb-3">
                     <label class="form-label">Tipo <span class="text-danger">*</span></label>
                     <select name="type" class="form-select @error('type') is-invalid @enderror" required>
@@ -92,6 +110,7 @@
                     @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- CATEGORIE -->
                 <div class="mb-4">
                     <label class="form-label">Categorie <span class="text-danger">*</span></label>
                     @php $cats = old('categories', []); @endphp

@@ -30,16 +30,16 @@
                 <div class="mb-5 zoom-in delay-400 transition-15">
                     <div id="insightCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach($insight->images as $image)
+                            @foreach(array_slice($insight->images, 1) as $image)
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                     <img src="{{ asset('storage/' . $image) }}" 
-                                        class="d-block w-100 rounded shadow" 
+                                        class="d-block w-100 rounded" 
                                         style="height: 400px; object-fit: contain;"
                                         alt="{{ $insight->title[app()->getLocale()] }}">
                                 </div>
                             @endforeach
                         </div>
-                        @if (count($insight->images) > 1)
+                        @if (count($insight->images) > 2)
                             <button class="carousel-control-prev" type="button" data-bs-target="#insightCarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon"></span>
                             </button>
@@ -61,8 +61,8 @@
             <p class="fs-6 text-justify">{!! nl2br($insight->description[app()->getLocale()]) !!}</p>
             <!-- VISIT LINK -->
             @if($insight->visit_link)
-            <div class="text-start mt-5">
-                <a href="{{ $insight->visit_link }}" target="_blank" class="btn-underline fs-5">
+            <div class="text-center mt-5">
+                <a href="{{ $insight->visit_link }}" target="_blank" class="btn-underline">
                     {{ __('ui.read_on_site') }}
                 </a>
             </div>

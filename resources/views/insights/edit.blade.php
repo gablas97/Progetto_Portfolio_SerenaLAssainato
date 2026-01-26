@@ -12,17 +12,17 @@
                 <!-- LINGUE -->
                 <ul class="nav nav-tabs mb-4" id="langTabs" role="tablist">
                     <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it" type="button">
                             Italiano
                         </button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en" type="button">
                             English
                         </button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr" type="button">
                             Français
                         </button>
                     </li>
@@ -41,7 +41,7 @@
                                 <input type="text"
                                     class="form-control @error('title.'.$lang) is-invalid @enderror"
                                     name="title[{{ $lang }}]"
-                                    value="{{ old('title.'.$lang, $insight->{'title.'.$lang}) }}"
+                                    value="{{ old("title.$lang", $insight->title[$lang]) }}"
                                     required>
                                 @error('title.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -54,7 +54,7 @@
                                 <textarea class="form-control @error('description.'.$lang) is-invalid @enderror"
                                         name="description[{{ $lang }}]"
                                         rows="5"
-                                        required>{{ old('description.'.$lang, $insight->{'description.'.$lang}) }}</textarea>
+                                        required>{{ old("description.$lang", $insight->description[$lang]) }}</textarea>
                                 @error('description.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
@@ -62,33 +62,84 @@
                     @endforeach
                 </div>
 
+                <!-- DATA -->
                 <div class="mb-3">
                     <label class="form-label">Data *</label>
                     <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date', $insight->date->format('Y-m-d')) }}" required>
                     @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- COPERTINA -->
                 <div class="mb-3">
-                    <label class="form-label">Immagini attuali</label>
-                    <div class="d-flex flex-wrap gap-2">
-                        @foreach($insight->images ?? [] as $img)
-                            <img src="{{ asset('storage/'.$img) }}" width="120" class="rounded me-2 mb-2">
+                    <label class="form-label">Immagine Copertina</label>
+                    @if(!empty($insight->images[0]))
+                        <div class="mb-2 text-start position-relative">
+                            <img src="{{ asset('storage/' . $insight->images[0]) }}"
+                                class="rounded mb-2 t-05"
+                                height="100">
+
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="checkbox" name="delete_images[]" value="0" id="delete_img_0">
+                                <label class="form-check-label small text-danger" for="delete_img_0">
+                                    Elimina copertina
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+
+                    <input type="file" class="form-control @error('cover_image') is-invalid @enderror"
+                        name="cover_image"
+                        accept="image/*">
+                    @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <!-- ALTRE IMMAGINI -->
+                <div class="mb-3">
+                    <label class="form-label">Altre immagini</label>
+
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach(array_slice($insight->images, 1) as $index => $img)
+                            <div class="position-relative text-center">
+                                <img src="{{ asset('storage/'.$img) }}"
+                                    class="rounded mb-2 t-05"
+                                    height="100">
+
+                                <div class="form-check text-start">
+                                    <input class="form-check-input" type="checkbox"
+                                        name="delete_images[]" value="{{ $index + 1 }}"
+                                        id="delete_img_{{ $index + 1 }}">
+                                    <label class="form-check-label small text-danger"
+                                        for="delete_img_{{ $index + 1 }}">
+                                        Elimina
+                                    </label>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>
 
+                <!-- CARICA NUOVE IMMAGINI -->
                 <div class="mb-3">
                     <label class="form-label">Aggiungi nuove immagini</label>
-                    <input type="file" class="form-control @error('images.*') is-invalid @enderror" name="images[]" multiple accept="image/*">
-                    @error('images.*')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <input type="file" class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror"
+                            name="images[]" multiple accept="image/*">
+                    <small class="text-muted">Le nuove immagini verranno aggiunte a quelle esistenti</small>
+                    @error('images')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @error('images.*')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
+                <!-- LINK ARTICOLO -->
                 <div class="mb-3">
                     <label class="form-label">Link Articolo</label>
                     <input type="url" class="form-control @error('visit_link') is-invalid @enderror" name="visit_link" value="{{ old('visit_link', $insight->visit_link) }}">
                     @error('visit_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- TIPO -->
                 <div class="mb-3">
                     <label class="form-label">Tipo *</label>
                     <select name="type" class="form-select @error('type') is-invalid @enderror" required>
@@ -99,6 +150,7 @@
                     @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- CATEGORIE -->
                 <div class="mb-4">
                     <label class="form-label">Categorie *</label>
                     @php $cats = old('categories', $insight->categories ?? []); @endphp

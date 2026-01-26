@@ -15,17 +15,17 @@
                         <!-- LINGUE -->
                         <ul class="nav nav-tabs mb-4" id="langTabs" role="tablist">
                             <li class="nav-item">
-                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lang-it" type="button">
                                     Italiano
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-en" type="button">
                                     English
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lang-fr" type="button">
                                     Français
                                 </button>
                             </li>
@@ -44,7 +44,7 @@
                                         <input type="text"
                                             class="form-control @error('title.'.$lang) is-invalid @enderror"
                                             name="title[{{ $lang }}]"
-                                            value="{{ old('title.'.$lang, $project->{'title.'.$lang}) }}"
+                                            value="{{ old("title.$lang", $project->title[$lang]) }}"
                                             required>
                                         @error('title.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
@@ -55,7 +55,7 @@
                                         <input type="text"
                                             class="form-control @error('subtitle.'.$lang) is-invalid @enderror"
                                             name="subtitle[{{ $lang }}]"
-                                            value="{{ old('subtitle.'.$lang, $project->{'subtitle.'.$lang}) }}">
+                                            value="{{ old("subtitle.$lang", $project->subtitle[$lang]) }}">
                                         @error('subtitle.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
 
@@ -67,7 +67,7 @@
                                         <textarea class="form-control @error('description.'.$lang) is-invalid @enderror"
                                                 name="description[{{ $lang }}]"
                                                 rows="5"
-                                                required>{{ old('description.'.$lang, $project->{'description.'.$lang}) }}</textarea>
+                                                required>{{ old("description.$lang", $project->description[$lang]) }}</textarea>
                                         @error('description.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
 
@@ -77,7 +77,7 @@
                                         <input type="text"
                                             class="form-control @error('location.'.$lang) is-invalid @enderror"
                                             name="location[{{ $lang }}]"
-                                            value="{{ old('location.'.$lang, $project->{'location.'.$lang}) }}">
+                                            value="{{ old("location.$lang", $project->location[$lang]) }}">
                                         @error('location.'.$lang)<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
 
@@ -95,13 +95,50 @@
                             @enderror
                         </div>
 
-                        <!-- IMMAGINI ATTUALI -->
+                        <!-- COPERTINA -->
                         <div class="mb-3">
-                            <label class="form-label">Immagini attuali</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                @foreach($project->images as $img)
-                                    <div class="position-relative me-2 mb-2">
-                                        <img src="{{ asset('storage/'.$img) }}" class="rounded" width="120">
+                            <label class="form-label">Immagine Copertina</label>
+                            @if(!empty($project->images[0]))
+                                <div class="mb-2 text-start position-relative">
+                                    <img src="{{ asset('storage/' . $project->images[0]) }}"
+                                        class="rounded mb-2 t-05"
+                                        height="100">
+
+                                    <div class="form-check text-start">
+                                        <input class="form-check-input" type="checkbox" name="delete_images[]" value="0" id="delete_img_0">
+                                        <label class="form-check-label small text-danger" for="delete_img_0">
+                                            Elimina copertina
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <input type="file" class="form-control @error('cover_image') is-invalid @enderror"
+                                name="cover_image"
+                                accept="image/*">
+                            @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        <!-- ALTRE IMMAGINI -->
+                        <div class="mb-3">
+                            <label class="form-label">Altre immagini</label>
+
+                            <div class="d-flex flex-wrap gap-3">
+                                @foreach(array_slice($project->images, 1) as $index => $img)
+                                    <div class="position-relative text-center">
+                                        <img src="{{ asset('storage/'.$img) }}"
+                                            class="rounded mb-2 t-05"
+                                            height="100">
+
+                                        <div class="form-check text-start">
+                                            <input class="form-check-input" type="checkbox"
+                                                name="delete_images[]" value="{{ $index + 1 }}"
+                                                id="delete_img_{{ $index + 1 }}">
+                                            <label class="form-check-label small text-danger"
+                                                for="delete_img_{{ $index + 1 }}">
+                                                Elimina
+                                            </label>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>

@@ -73,7 +73,7 @@
                 @endif
 
                 <!-- Contact Form -->
-                <div class="card shadow-lg border-0 zoom-in transition-2">
+                <div class="card shadow-lg border-0 zoom-in transition-2 contact-form">
                     <div class="card-body p-4 p-md-5">
                         <form action="{{ route('contact.send') }}" method="POST">
                             @csrf

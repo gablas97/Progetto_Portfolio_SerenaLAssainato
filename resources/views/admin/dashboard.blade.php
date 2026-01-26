@@ -37,7 +37,7 @@
             <div class="row g-4">
                 @forelse($projects as $project)
                 <div class="col-md-6 col-lg-4">
-                    <a href="{{ route('project.show', $project->id) }}" class="text-decoration-none">
+                    <a href="{{ route('project.show', $project->id) }}" target="_blank" class="text-decoration-none">
                         <div class="card h-100 shadow-sm">
                             <div class="overflow-hidden">
                                 <img src="{{ asset('storage/' . $project->images[0]) }}" 
@@ -85,13 +85,15 @@
             <div class="row g-4">
                 @forelse($insights as $insight)
                 <div class="col-md-6 col-lg-4">
-                    <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
+                    <a href="{{ route('insight.show', $insight->id) }}" target="_blank" class="text-decoration-none">
                         <div class="card h-100 shadow-sm">
                             @if($insight->images)
-                            <img src="{{ asset('storage/' . $insight->images[0]) }}" 
-                                class="card-img-top t-05" 
-                                alt="{{ $insight->title['it'] }} COVER"
-                                style="height: 200px; object-fit: cover;">
+                            <div class="overflow-hidden">
+                                <img src="{{ asset('storage/' . $insight->images[0]) }}" 
+                                    class="card-img-top t-05" 
+                                    alt="{{ $insight->title['it'] }} COVER"
+                                    style="height: 200px; object-fit: cover;">
+                            </div>
                             @else
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" 
                             style="height: 200px;">
@@ -129,7 +131,7 @@
 
         <div class="row">
             <div class="col-12 col-md-6 text-center">
-                <a href="{{ route('homepage') }}" class="btn btn-dark">Vai alla homepage</a>
+                <a href="{{ route('homepage') }}" target="_blank" class="btn btn-dark">Vai alla homepage</a>
             </div>
             <div class="col-12 col-md-6 text-center">
                 <form action="{{ route('logout') }}" method="POST">

@@ -6,12 +6,13 @@ use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
     public function project_index()
     {
-        $projects = Project::latest('created_at')->get();
+        $projects = Project::latest('execution_year')->get();
         return view('projects.index', compact('projects'));
     }
 
@@ -40,6 +41,7 @@ class ProjectController extends Controller
             'location.en' => 'required|string|max:255',
             'location.fr' => 'required|string|max:255',
             
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'execution_year' => 'nullable|integer|digits:4|min:1900|max:' . date('Y'),
@@ -56,6 +58,12 @@ class ProjectController extends Controller
 
         // Salva le immagini
         $imagePaths = [];
+
+        if ($request->hasFile('cover_image')) {
+            $path = $request->file('cover_image')->store('projects', 'public');
+            $imagePaths[] = $path;
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('projects', 'public');
@@ -75,7 +83,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard')
-            ->with('success', 'Progetto "' . $project->title['it'] . '" creato con successo!', compact('project'));
+            ->with('success', 'Progetto "' . $project->title['it'] . '" creato con successo!');
     }
 
     public function show(Project $project)
@@ -95,7 +103,7 @@ class ProjectController extends Controller
         })->get();
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
-                            ->sortByDesc('created_at')
+                            ->sortByDesc('execution_year')
                             ->values();
 
         return view('projects.show', compact('project', 'relatedItems'));
@@ -126,6 +134,10 @@ class ProjectController extends Controller
             'location.en' => 'required|string|max:255',
             'location.fr' => 'required|string|max:255',
 
+            'delete_images' => 'nullable|array',
+            'delete_images.*' => 'integer',
+
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'execution_year' => 'nullable|integer|digits:4',
@@ -133,13 +145,25 @@ class ProjectController extends Controller
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
         ]);
 
-        // Se vengono caricate nuove immagini, aggiungile alle esistenti
         $imagePaths = $project->images ?? [];
+
+        if (!empty($validated['delete_images'])) {
+            foreach ($validated['delete_images'] as $index) {
+                if (isset($imagePaths[$index])) {
+                    Storage::disk('public')->delete($imagePaths[$index]);
+                    unset($imagePaths[$index]);
+                }
+            }
+            $imagePaths = array_values($imagePaths);
+        }
+
+        if ($request->hasFile('cover_image')) {
+            array_unshift($imagePaths, $request->file('cover_image')->store('projects', 'public'));
+        }
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('projects', 'public');
-                $imagePaths[] = $path;
+                $imagePaths[] = $image->store('projects', 'public');
             }
         }
 

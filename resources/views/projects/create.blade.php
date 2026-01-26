@@ -85,6 +85,17 @@
                             @endforeach
 
                         </div>
+                        
+                        <!-- IMMAGINE COPERTINA -->
+                        <div class="mb-3">
+                            <label class="form-label">Immagine Copertina <span class="text-danger">*</span></label>
+                            <input type="file"
+                                class="form-control @error('cover_image') is-invalid @enderror"
+                                name="cover_image"
+                                accept="image/*"
+                                required>
+                            @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
 
                         <!-- IMMAGINI -->
                         <div class="mb-3">

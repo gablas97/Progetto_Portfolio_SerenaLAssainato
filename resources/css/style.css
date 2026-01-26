@@ -1,6 +1,6 @@
 /* GENERALI */
 :root {
-    --color-primary: #FCFAF0;
+    --color-primary: #ffffff;
     --color-secondary: #2A2A2A;
     --text-title: 'Lexend', sans-serif;
     --text-body: 'Comfortaa', sans-serif;
@@ -49,7 +49,12 @@ a {
 }
 
 .custom-link {
-    text-decoration: underline;
+    border-bottom: 1px solid #000000;
+    transition: 0.3s;
+}
+
+.custom-link:hover {
+    border-bottom: none;
 }
 
 .bg-p {
@@ -464,6 +469,10 @@ ul a:hover {
 }
 
 /* CONTACTS */
+.contact-form {
+    background-color: #ffffff;
+}
+
 .contact-item {
     padding: 2rem 1rem;
     transition: all 0.3s;
@@ -581,8 +590,11 @@ ul a:hover {
 
     .navbar-collapse.collapse.show {
         background-color: var(--color-primary);
-        padding: 1rem 0;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 1rem 1rem;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
     }
 }
 

@@ -6,12 +6,13 @@ use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class InsightController extends Controller
 {
     public function insight_index()
     {
-        $insights = Insight::latest('created_at')->get();
+        $insights = Insight::latest('date')->get();
         return view('insights.index', compact('insights'));
     }
 
@@ -32,6 +33,7 @@ class InsightController extends Controller
             'description.fr' => 'required|string',
 
             'date' => 'required|date',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'categories' => 'required|array|min:1',
@@ -41,6 +43,12 @@ class InsightController extends Controller
         ]);
 
         $imagePaths = [];
+
+        if ($request->hasFile('cover_image')) {
+            $path = $request->file('cover_image')->store('insights', 'public');
+            $imagePaths[] = $path;
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('insights', 'public');
@@ -54,7 +62,7 @@ class InsightController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard')
-            ->with('success', 'Contenuto "' . $insight->title['it'] . '" creato con successo!', compact('insight'));
+            ->with('success', 'Contenuto "' . $insight->title['it'] . '" creato con successo!');
     }
 
     public function show(Insight $insight)
@@ -74,7 +82,7 @@ class InsightController extends Controller
             ->get();
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
-                            ->sortByDesc('created_at')
+                            ->sortByDesc('date')
                             ->values();
 
         return view('insights.show', compact('insight', 'relatedItems'));
@@ -96,7 +104,11 @@ class InsightController extends Controller
             'description.en' => 'required|string',
             'description.fr' => 'required|string',
 
+            'delete_images' => 'nullable|array',
+            'delete_images.*' => 'integer',
+
             'date' => 'required|date',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'categories' => 'required|array|min:1',
@@ -107,10 +119,23 @@ class InsightController extends Controller
 
         $imagePaths = $insight->images ?? [];
 
+        if (!empty($validated['delete_images'])) {
+            foreach ($validated['delete_images'] as $index) {
+                if (isset($imagePaths[$index])) {
+                    Storage::disk('public')->delete($imagePaths[$index]);
+                    unset($imagePaths[$index]);
+                }
+            }
+            $imagePaths = array_values($imagePaths);
+        }
+
+        if ($request->hasFile('cover_image')) {
+            array_unshift($imagePaths, $request->file('cover_image')->store('insights', 'public'));
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('insights', 'public');
-                $imagePaths[] = $path;
+                $imagePaths[] = $image->store('insights', 'public');
             }
         }
 

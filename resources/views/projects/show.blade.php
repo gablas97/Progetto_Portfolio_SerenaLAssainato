@@ -13,16 +13,16 @@
         <div class="col-md-8 transition-col" id="carouselCol">
             <div id="projectCarousel" class="carousel slide zoom-in delay-800 transition-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @foreach($project->images as $image)
+                    @foreach(array_slice($project->images, 1) as $image)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $image) }}" 
-                                class="d-block w-100 rounded shadow" 
+                                class="d-block w-100 rounded" 
                                 style="height: 500px; object-fit: contain;"
                                 alt="{{ $project->title[app()->getLocale()] }}">
                         </div>
                     @endforeach
                 </div>
-                @if (count($project->images) > 1)    
+                @if (count($project->images) > 2)    
                     <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                     </button>
