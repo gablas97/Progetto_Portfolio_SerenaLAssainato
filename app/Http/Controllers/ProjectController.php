@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -94,16 +95,25 @@ class ProjectController extends Controller
                     $q->orWhereJsonContains('categories', $category);
                 }
             })
-            ->get();
+            ->get()
+            ->map(function($p) {
+                $p->sort_date = Carbon::createFromFormat('Y-m-d', $p->execution_year . '-01-01');
+                return $p;
+            });
 
         $relatedInsights = Insight::where(function($q) use ($project) {
             foreach ($project->categories as $category) {
                 $q->orWhereJsonContains('categories', $category);
             }
-        })->get();
+        })
+        ->get()
+        ->map(function($i) {
+            $i->sort_date = Carbon::parse($i->date);
+            return $i;
+        });
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
-                            ->sortByDesc('execution_year')
+                            ->sortByDesc('sort_date')
                             ->values();
 
         return view('projects.show', compact('project', 'relatedItems'));
@@ -137,7 +147,7 @@ class ProjectController extends Controller
             'delete_images' => 'nullable|array',
             'delete_images.*' => 'integer',
 
-            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'execution_year' => 'nullable|integer|digits:4',

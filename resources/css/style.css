@@ -89,6 +89,11 @@ a {
     transition: 1s;
 }
 
+#insightCarousel .carousel-control-prev-icon,
+#insightCarousel .carousel-control-next-icon {
+    filter: invert(1);
+}
+
 /* BOTTONI */
 .btn-outline-dark {
     border: 1px solid rgb(80, 80, 80);
@@ -445,7 +450,7 @@ ul a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.507);
+    background-color: rgba(255, 255, 255, 0.570);
     color: var(--color-secondary);
     padding: 1.5rem;
     transform: translateY(100%);
@@ -596,6 +601,14 @@ ul a:hover {
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         z-index: 1000;
     }
+
+    .index-title-overlay {
+        transform: translateY(0);
+    }
+
+    .project-overlay-home {
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 576px) {
@@ -610,6 +623,10 @@ ul a:hover {
 
     .about-me {
         text-align: center;
+    }
+
+    .carousel-item img {
+        height: auto !important;
     }
 }
 
@@ -679,3 +696,42 @@ ul a:hover {
         transform: none;
     }
 } */
+
+/* ERRORI */
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-box {
+    background-color: #ffffff;
+    padding: 3rem 2.5rem;
+    border: 1px solid #e5e5e5;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+}
+
+.error-code {
+    display: block;
+    font-size: 4rem;
+    font-weight: 300;
+    color: #999;
+    margin-bottom: 1rem;
+}
+
+.error-box h1 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.error-box p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem;
+}

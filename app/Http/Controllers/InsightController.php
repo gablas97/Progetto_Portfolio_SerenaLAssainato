@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Insight;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -71,7 +72,12 @@ class InsightController extends Controller
             foreach ($insight->categories as $category) {
                 $q->orWhereJsonContains('categories', $category);
             }
-        })->get();
+        })
+        ->get()
+        ->map(function($p) {
+            $p->sort_date = Carbon::createFromFormat('Y-m-d', $p->execution_year . '-01-01');
+            return $p;
+        });
 
         $relatedInsights = Insight::where('id', '!=', $insight->id)
             ->where(function($q) use ($insight) {
@@ -79,10 +85,14 @@ class InsightController extends Controller
                     $q->orWhereJsonContains('categories', $category);
                 }
             })
-            ->get();
+            ->get()
+            ->map(function($i) {
+                $i->sort_date = Carbon::parse($i->date);
+                return $i;
+            });
 
         $relatedItems = $relatedProjects->concat($relatedInsights)
-                            ->sortByDesc('date')
+                            ->sortByDesc('sort_date')
                             ->values();
 
         return view('insights.show', compact('insight', 'relatedItems'));

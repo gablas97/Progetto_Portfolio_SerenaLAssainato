@@ -10,7 +10,7 @@
     <!-- CAROSELLO + INFO -->
     <div class="row align-items-start" id="projectMainRow">
         <!-- CAROSELLO -->
-        <div class="col-md-8 transition-col" id="carouselCol">
+        <div class="col-md-8 transition-col mb-3 mb-lg-0" id="carouselCol">
             <div id="projectCarousel" class="carousel slide zoom-in delay-800 transition-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach(array_slice($project->images, 1) as $image)
@@ -33,8 +33,8 @@
             </div>
         </div>
 
+        <!-- INFO PROGETTO -->
         <div class="col-md-4 transition-col pe-lg-0" id="infodescCol">
-            <!-- INFO PROGETTO -->
             <div id="infoCol" class="fade-left delay-400 transition-2">            
                 <h1>{{ $project->title[app()->getLocale()] }}</h1>
                 @if($project->subtitle)

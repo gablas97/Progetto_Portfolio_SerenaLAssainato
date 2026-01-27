@@ -14,8 +14,8 @@ class PublicController extends Controller
 {
     public function homepage()
     {
-        $latestProjects = Project::latest()->take(3)->get();
-        $latestInsights = Insight::latest()->take(3)->get();
+        $latestProjects = Project::orderBy('execution_year', 'desc')->take(3)->get();
+        $latestInsights = Insight::orderBy('date', 'desc')->take(3)->get();
         
         return view('welcome', compact('latestProjects', 'latestInsights'));
     }

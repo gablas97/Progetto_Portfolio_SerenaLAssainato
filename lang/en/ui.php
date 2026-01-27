@@ -24,7 +24,7 @@ return [
     'location' => 'Location',
     'categories' => 'Categories',
     'related_articles' => 'Related Works',
-    'read_on_site' => 'See more',
+    'read_on_site' => 'Discover more',
     'types' => [
         'news' => 'News',
         'insight' => 'Insight',

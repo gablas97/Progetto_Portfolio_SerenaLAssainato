@@ -10,7 +10,7 @@
             @endif
             
             @forelse($insights as $insight)
-                <div class="col-12 col-md-6 col-lg-4 fade-right transition-2 d-flex justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4 zoom-in transition-2 d-flex justify-content-center">
                     <a href="{{ route('insight.show', $insight->id) }}" class="text-decoration-none">
                         <div class="index-card">
                             @if($insight->images)
@@ -29,7 +29,7 @@
                                     alt="Default">
                             @endif
                             <div class="index-title-overlay">
-                                <p class="mb-0 fs-5 text-uppercase">{{ $insight->title[app()->getLocale()] }}</p>
+                                <p class="mb-0 fs-5 fw-bold text-uppercase">{{ $insight->title[app()->getLocale()] }}</p>
                             </div>
                         </div>
                     </a>

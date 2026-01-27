@@ -24,7 +24,7 @@ return [
     'location' => 'Luogo',
     'categories' => 'Categorie',
     'related_articles' => 'Lavori Correlati',
-    'read_on_site' => 'Vedi di più',
+    'read_on_site' => 'Scopri di più',
     'types' => [
         'news' => 'News',
         'insight' => 'Approfondimento',

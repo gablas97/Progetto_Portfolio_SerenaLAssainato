@@ -4,7 +4,7 @@
 
     <!-- BOTTONE INDIETRO -->
     <div class="row justify-content-center fade-down delay-800">
-        <div class="col-8">
+        <div class="col-12 col-lg-8">
             <div class="mb-4">
                 <a href="{{ route('insight.index') }}" class="btn-underline">{{ __('ui.back') }}</a>
             </div>
@@ -19,31 +19,31 @@
                 </span>
             </div>
             <!-- TITOLO -->
-            <h1 class="display-5 mb-4">{{ $insight->title[app()->getLocale()] }}</h1>
+            <h1 class="display-5 mb-lg-4 mb-0">{{ $insight->title[app()->getLocale()] }}</h1>
         </div>
     </div>
 
     <!-- IMMAGINI (se presenti) -->
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-12 col-lg-8 my-4 my-lg-0">
             @if($insight->images && count($insight->images) > 0)
-                <div class="mb-5 zoom-in delay-400 transition-15">
+                <div class="mb-lg-5 zoom-in delay-400 transition-15">
                     <div id="insightCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach(array_slice($insight->images, 1) as $image)
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                     <img src="{{ asset('storage/' . $image) }}" 
                                         class="d-block w-100 rounded" 
-                                        style="height: 400px; object-fit: contain;"
+                                        style="height: 450px; object-fit: contain;"
                                         alt="{{ $insight->title[app()->getLocale()] }}">
                                 </div>
                             @endforeach
                         </div>
                         @if (count($insight->images) > 2)
-                            <button class="carousel-control-prev" type="button" data-bs-target="#insightCarousel" data-bs-slide="prev">
+                            <button class="carousel-control-prev d-flex justify-content-start" type="button" data-bs-target="#insightCarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon"></span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#insightCarousel" data-bs-slide="next">
+                            <button class="carousel-control-next d-flex justify-content-end" type="button" data-bs-target="#insightCarousel" data-bs-slide="next">
                                 <span class="carousel-control-next-icon"></span>
                             </button>
                         @endif
@@ -56,7 +56,7 @@
 
     <div class="row justify-content-center">
         <!-- DESCRIZIONE -->
-        <div class="mb-5 col-8">
+        <div class="mb-5 col-12 col-lg-8">
             {{-- <h3>{{ __('ui.description') }}</h3> --}}
             <p class="fs-6 text-justify">{!! nl2br($insight->description[app()->getLocale()]) !!}</p>
             <!-- VISIT LINK -->
