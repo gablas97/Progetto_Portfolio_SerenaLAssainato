@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /
+Disallow: /generate-sitemap
 
 Sitemap: https://sl-architecture.com/sitemap.xml

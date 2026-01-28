@@ -12,7 +12,7 @@ use Faker\Guesser\Name;
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/contacts', [PublicController::class, 'contacts'])->name('contacts');
-Route::post('/contact/send', [PublicController::class, 'send'])->name('contact.send');
+Route::post('/contact/send', [PublicController::class, 'send'])->name('contact.send')->middleware('throttle:5,10');
 Route::post('/language/{lang}', [PublicController::class, 'setLanguage'])->name('language.set');
 
 // Admin Controller

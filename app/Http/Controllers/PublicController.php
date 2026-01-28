@@ -24,6 +24,8 @@ class PublicController extends Controller
 
     public function about()
     {
+        session(['contact_form_loaded_at' => now()]);
+    
         return view('about');
     }
 
@@ -34,17 +36,22 @@ class PublicController extends Controller
 
     public function send(Request $request)
     {
+        // Controllo honeypot
+        if ($request->filled('company_website')) {
+            return response()->noContent();
+        }
+
+        // Controllo tempo minimo
+        $loadedAt = $request->session()->get('contact_form_loaded_at');
+        if ($loadedAt && (now()->diffInSeconds($loadedAt) < 3)) {
+            return abort(429);
+        }
+
         // Validazione
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string|min:10',
-        ], [
-            'name.required' => 'Il nome è obbligatorio',
-            'email.required' => 'L\'email è obbligatoria',
-            'email.email' => 'Inserisci un\'email valida',
-            'message.required' => 'Il messaggio è obbligatorio',
-            'message.min' => 'Il messaggio deve contenere almeno 10 caratteri',
         ]);
 
         // Dati per l'email
@@ -61,7 +68,7 @@ class PublicController extends Controller
                     ->replyTo($data['email']);
         });
 
-        return redirect()->back()->with('success', __('ui.contact_success'));
+        return redirect()->back()->with('success', __('ui.contact_success'))->header('X-Robots-Tag', 'noindex, nofollow');
     }
 
     public function setLanguage($lang)

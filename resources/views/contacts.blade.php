@@ -125,6 +125,12 @@
                                 @enderror
                             </div>
 
+                            <!-- Honeypot Field -->
+                            <div style="display:none">
+                                <label>Company website</label>
+                                <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+                            </div>
+
                             <!-- Submit Button -->
                             <div class="text-center">
                                 <button type="submit" class="btn-underline btn-sm text-uppercase">
