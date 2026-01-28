@@ -39,6 +39,7 @@ return [
     'message' => 'Message',
     'send_message' => 'Send Message',
     'contact_success' => 'Your message has been sent successfully! I will get back to you as soon as possible.',
+    
     // Curriculum
     '2025' => '<strong>Architecture for Landscape</strong> program, YACademy - Bologna, Italy',
     '2024' => '<strong>Architect</strong> at Mongiello&Plisson - Colmar, France',
@@ -52,5 +53,43 @@ return [
     '2018' => '<strong>Architectural internship</strong> at AL\'Architetto - Grottaglie, Italy',
     '2016_1' => 'Start of <strong>architectural studies</strong> - Strasbourg, France',
     '2016_2' => '<strong>French B2</strong> Certification',
-    '2014' => 'Scientific <strong>Diploma</strong> at Maria Pia - Taranto, Italy'
+    '2014' => 'Scientific <strong>Diploma</strong> at Maria Pia - Taranto, Italy',
+
+    // Error pages
+    'errors' => [
+        '403' => [
+            'title' => 'Access Denied',
+            'message' => 'Sorry, you do not have permission to access this page.',
+            'button' => 'Return to Homepage',
+        ],
+        '404' => [
+            'title' => 'Page not found',
+            'message' => 'Sorry, the page you are looking for does not exist or has been moved.',
+            'button' => 'Return to Homepage',
+        ],
+        '419' => [
+            'title' => 'Page expired',
+            'message' => 'Sorry, the page has expired for security reasons.<br>
+            Please reload the page or try again.',
+            'button' => 'Reload the page',
+        ],
+        '500' => [
+            'title' => 'Service Unavailable',
+            'message' => 'The service is temporarily unavailable.<br>
+            Please try again later.',
+            'button' => 'Return to Homepage',
+        ],
+        '503' => [
+            'title' => 'Service Unavailable',
+            'message' => 'The service is temporarily unavailable.<br>
+            Please try again later.',
+            'button' => 'Return to Homepage',
+        ],
+        '529' => [
+            'title' => 'Service Unavailable',
+            'message' => 'The service is temporarily unavailable.<br>
+            Please try again later.',
+            'button' => 'Return to Homepage',
+        ],
+    ]
 ];

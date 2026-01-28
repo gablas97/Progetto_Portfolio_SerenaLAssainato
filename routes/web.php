@@ -41,3 +41,6 @@ Route::get('/news&insights/{insight}', [InsightController::class, 'show'])->name
 Route::get('/admin/insights/edit/{insight}', [InsightController::class, 'edit'])->name('insight.edit');
 Route::put('/admin/insights/update/{insight}', [InsightController::class, 'update'])->name('insight.update');
 Route::delete('/admin/insights/delete/{insight}', [InsightController::class, 'destroy'])->name('insight.destroy');
+
+// Sitemap
+Route::get('generate-sitemap/{token}', [PublicController::class, 'generate_sitemap'])->name('sitemap.generate');

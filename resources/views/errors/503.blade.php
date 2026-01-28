@@ -4,14 +4,11 @@
 
         <span class="error-code">503</span>
 
-        <h1 class="error-message">Servizio non disponibile</h1>
+        <h1 class="error-message">{{ __('ui.errors.503.title') }}</h1>
 
-        <p class="error-description">
-            Il servizio è momentaneamente non disponibile.<br>
-            Riprova più tardi.
-        </p>
+        <p class="error-description">{!! __('ui.errors.503.message') !!}</p>
 
-        <a href="{{ url()->current() }}" class="btn-underline">Ricarica la pagina</a>
+        <a href="{{ route('homepage') }}" class="btn-underline">{{ __('ui.errors.503.button') }}</a>
 
     </section>
 

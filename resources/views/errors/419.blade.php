@@ -4,14 +4,11 @@
 
         <span class="error-code">419</span>
 
-        <h1 class="error-message">Sessione scaduta</h1>
+        <h1 class="error-message">{{ __('ui.errors.419.title') }}</h1>
 
-        <p class="error-description">
-            Spiacenti, la pagina è scaduta per motivi di sicurezza.<br>
-            Ricarica la pagina o riprova.
-        </p>
+        <p class="error-description">{!! __('ui.errors.419.message') !!}</p>
 
-        <a href="{{ url()->current() }}" class="btn-underline">Ricarica la pagina</a>
+        <a href="{{ url()->current() }}" class="btn-underline">{{ __('ui.errors.419.button') }}</a>
 
     </section>
 

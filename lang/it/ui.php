@@ -39,6 +39,7 @@ return [
     'message' => 'Messaggio',
     'send_message' => 'Invia Messaggio',
     'contact_success' => 'Il tuo messaggio è stato inviato con successo! Ti risponderò al più presto.',
+    
     // Curriculum
     '2025' => 'Corso <strong>Architecture for Landscape</strong>, YACademy - Bologna, Italia',
     '2024' => '<strong>Architetta</strong> presso Mongiello&Plisson - Colmar, Francia',
@@ -52,5 +53,43 @@ return [
     '2018' => '<strong>Tirocinio di Architettura</strong> presso AL\'Architetto - Grottaglie, Italia',
     '2016_1' => 'Inizio degli <strong>studi di architettura</strong> - Strasburgo, Francia',
     '2016_2' => 'Certificazione di <strong>Francese B2</strong>',
-    '2014' => '<strong>Diploma</strong> Scientifico presso Maria Pia - Taranto, Italia'
+    '2014' => '<strong>Diploma</strong> Scientifico presso Maria Pia - Taranto, Italia',
+
+    // Error pages
+    'errors' => [
+        '403' => [
+            'title' => 'Accesso negato',
+            'message' => 'Spiacenti, non hai i permessi necessari per accedere a questa pagina.',
+            'button' => 'Torna alla homepage',
+        ],
+        '404' => [
+            'title' => 'Pagina non trovata',
+            'message' => 'Spiacenti, la pagina che stai cercando non esiste oppure è stata spostata.',
+            'button' => 'Torna alla homepage',
+        ],
+        '419' => [
+            'title' => 'Sessione scaduta',
+            'message' => 'Spiacenti, la pagina è scaduta per motivi di sicurezza.<br>
+            Ricarica la pagina o riprova.',
+            'button' => 'Ricarica la pagina',
+        ],
+        '500' => [
+            'title' => 'Servizio non disponibile',
+            'message' => 'Il servizio è momentaneamente non disponibile.<br>
+            Riprova più tardi.',
+            'button' => 'Torna alla homepage',
+        ],
+        '503' => [
+            'title' => 'Servizio non disponibile',
+            'message' => 'Il servizio è momentaneamente non disponibile.<br>
+            Riprova più tardi.',
+            'button' => 'Torna alla homepage',
+        ],
+        '529' => [
+            'title' => 'Servizio non disponibile',
+            'message' => 'Il servizio è momentaneamente non disponibile.<br>
+            Riprova più tardi.',
+            'button' => 'Torna alla homepage',
+        ],
+    ]
 ];

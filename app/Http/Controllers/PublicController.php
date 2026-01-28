@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Insight;
 use App\Models\Project;
+use Spatie\Sitemap\Sitemap;
 use Illuminate\Http\Request;
-use function Pest\Laravel\session;
 
+use Spatie\Sitemap\Tags\Url;
+use function Pest\Laravel\session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -69,8 +71,36 @@ class PublicController extends Controller
         }
 
         Session::put('locale', $lang);
+        cookie()->queue('locale', $lang, 60 * 24 * 30);
 
         return redirect()->back();
     }
 
+    public function generate_sitemap($token)
+    {
+        if ($token !== env('SITEMAP_TOKEN')) {
+            abort(403, 'Token non valido.');
+        }
+
+        $sitemap = Sitemap::create()
+            ->add(Url::create('/')->setPriority(1.0))
+            ->add(Url::create('/projects')->setPriority(0.9))
+            ->add(Url::create('/insights')->setPriority(0.9))
+            ->add(Url::create('/about')->setPriority(0.8))
+            ->add(Url::create('/contact')->setPriority(0.8));
+
+        $projects = Project::all();
+        foreach ($projects as $project) {
+            $sitemap->add(Url::create("/projects/{$project->id}")->setPriority(0.8));
+        }
+
+        $insights = Insight::all();
+        foreach ($insights as $insight) {
+            $sitemap->add(Url::create("/insights/{$insight->id}")->setPriority(0.8));
+        }
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
+
+        return response('Sitemap generata correttamente!', 200);
+    }
 }

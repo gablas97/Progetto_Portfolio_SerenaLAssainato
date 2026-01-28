@@ -4,13 +4,11 @@
 
         <span class="error-code">404</span>
 
-        <h1 class="error-message">Pagina non trovata</h1>
+        <h1 class="error-message">{{ __('ui.errors.404.title') }}</h1>
 
-        <p class="error-description">
-            Spiacenti, la pagina che stai cercando non esiste oppure è stata spostata.
-        </p>
+        <p class="error-description">{{ __('ui.errors.404.message') }}</p>
 
-        <a href="{{ route('homepage') }}" class="btn-underline">Torna alla homepage</a>
+        <a href="{{ route('homepage') }}" class="btn-underline">{{ __('ui.errors.404.button') }}</a>
 
     </section>
 

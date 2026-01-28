@@ -4,13 +4,11 @@
 
         <span class="error-code">403</span>
 
-        <h1 class="error-message">Accesso negato</h1>
+        <h1 class="error-message">{{ __('ui.errors.403.title') }}</h1>
 
-        <p class="error-description">
-            Spiacenti, non hai i permessi necessari per accedere a questa pagina.
-        </p>
-        
-        <a href="{{ route('homepage') }}" class="btn-underline">Torna alla homepage</a>
+        <p class="error-description">{{ __('ui.errors.403.message') }}</p>
+
+        <a href="{{ route('homepage') }}" class="btn-underline">{{ __('ui.errors.403.button') }}</a>
 
     </section>
 

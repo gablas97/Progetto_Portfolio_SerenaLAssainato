@@ -39,6 +39,7 @@ return [
     'message' => 'Message',
     'send_message' => 'Envoyer le message',
     'contact_success' => 'Votre message a été envoyé avec succès ! Je vous répondrai dès que possible.',
+
     // Curriculum
     '2025' => 'Cours <strong>Architecture for Landscape</strong>, YACademy - Bologne, Italie',
     '2024' => '<strong>Architecte</strong> chez Mongiello&Plisson - Colmar, France',
@@ -52,5 +53,43 @@ return [
     '2018' => '<strong>Stage en architecture</strong> chez AL\'Architetto - Grottaglie, Italie',
     '2016_1' => 'Début des <strong>études d\'architecture</strong> - Strasbourg, France',
     '2016_2' => 'Certification de <strong>Français B2</strong>',
-    '2014' => '<strong>Diplôme</strong> Scientifique auprés de l\'école Maria Pia - Taranto, Italie'
+    '2014' => '<strong>Diplôme</strong> Scientifique auprés de l\'école Maria Pia - Taranto, Italie',
+
+    // Error pages
+    'errors' => [
+        '403' => [
+            'title' => 'Accès refusé',
+            'message' => 'Désolé, vous n\'avez pas la permission d\'accéder à cette page.',
+            'button' => 'Retour à la page d\'accueil',
+        ],
+        '404' => [
+            'title' => 'Page non trouvée',
+            'message' => 'Désolé, la page que vous recherchez n\'existe pas ou a été déplacée.',
+            'button' => 'Retour à la page d\'accueil',
+        ],
+        '419' => [
+            'title' => 'Page expirée',
+            'message' => 'Désolé, la page a expiré pour des raisons de sécurité.<br>
+            Veuillez recharger la page ou réessayer.',
+            'button' => 'Recharger la page',
+        ],
+        '500' => [
+            'title' => 'Service indisponible',
+            'message' => 'Le service est temporairement indisponible.<br>
+            Veuillez essayer plus tard.',
+            'button' => 'Retour à la page d\'accueil',
+        ],
+        '503' => [
+            'title' => 'Service indisponible',
+            'message' => 'Le service est temporairement indisponible.<br>
+            Veuillez essayer plus tard.',
+            'button' => 'Retour à la page d\'accueil',
+        ],
+        '529' => [
+            'title' => 'Service indisponible',
+            'message' => 'Le service est temporairement indisponible.<br>
+            Veuillez essayer plus tard.',
+            'button' => 'Retour à la page d\'accueil',
+        ],
+    ]
 ];
