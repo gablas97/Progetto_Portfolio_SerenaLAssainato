@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'site_description' => 'Scopri i miei progetti e le mie news. Contattami per collaborazioni e consulenze.',
     'projects' => 'Progetti',
     'news' => 'News',
     'about' => 'Profilo',

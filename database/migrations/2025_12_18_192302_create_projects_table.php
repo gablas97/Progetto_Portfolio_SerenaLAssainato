@@ -17,9 +17,9 @@ return new class extends Migration
             $table->json('subtitle')->nullable();
             $table->json('description');
             $table->json('location')->nullable();
-            $table->json('images'); // Salva array di percorsi immagini
+            $table->json('images');
             $table->year('execution_year')->nullable();
-            $table->json('categories'); // Salva array di categorie
+            $table->json('categories');
             $table->timestamps();
         });
     }

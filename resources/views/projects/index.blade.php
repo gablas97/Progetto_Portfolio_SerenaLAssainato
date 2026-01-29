@@ -16,6 +16,11 @@
                             <img src="{{ asset('storage/' . $project->images[0]) }}" class="index-image" alt="{{ $project->title[app()->getLocale()] }}">
                             <div class="index-title-overlay">
                                 <p class="mb-0 fs-5 fw-bold text-uppercase">{{ $project->title[app()->getLocale()] }}</p>
+                                <p class="mb-0 fw-bold text-muted">
+                                    {{ $project->execution_year }}
+                                        -
+                                    {{ $project->location[app()->getLocale()] }}
+                                </p>
                             </div>
                         </div>
                     </a>

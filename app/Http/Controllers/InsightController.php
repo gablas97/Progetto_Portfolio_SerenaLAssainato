@@ -34,13 +34,19 @@ class InsightController extends Controller
             'description.fr' => 'required|string',
 
             'date' => 'required|date',
+
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+
+            'videos' => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,avi,mov,wmv|max:51200',
+
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
             'type' => 'required|in:news,insight,interview',
             'visit_link' => 'nullable|url|max:500',
+            'videos.*.max' => 'Ogni video non può superare i 50MB',
         ]);
 
         $imagePaths = [];
@@ -57,9 +63,19 @@ class InsightController extends Controller
             }
         }
 
+        // Salva video
+        $videoPaths = [];
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $video) {
+                $path = $video->store('insights/videos', 'public');
+                $videoPaths[] = $path;
+            }
+        }
+
         $insight = Insight::create([
             ...$validated,
             'images' => $imagePaths,
+            'videos' => $videoPaths,
         ]);
 
         return redirect()->route('admin.dashboard')
@@ -117,9 +133,16 @@ class InsightController extends Controller
             'delete_images' => 'nullable|array',
             'delete_images.*' => 'integer',
 
+            'delete_videos' => 'nullable|array',
+            'delete_videos.*' => 'integer',
+
             'date' => 'required|date',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array',
+
+            'videos' => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,avi,mov,wmv|max:51200',
+
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
@@ -149,9 +172,28 @@ class InsightController extends Controller
             }
         }
 
+        $videoPaths = $insight->videos ?? [];
+
+        if (!empty($validated['delete_videos'])) {
+            foreach ($validated['delete_videos'] as $index) {
+                if (isset($videoPaths[$index])) {
+                    Storage::disk('public')->delete($videoPaths[$index]);
+                    unset($videoPaths[$index]);
+                }
+            }
+            $videoPaths = array_values($videoPaths);
+        }
+
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $video) {
+                $videoPaths[] = $video->store('insights/videos', 'public');
+            }
+        }
+
         $insight->update([
             ...$validated,
             'images' => $imagePaths,
+            'videos' => $videoPaths,
         ]);
 
         return redirect()->route('insight.index')->with('success', 'Contenuto "' . $insight->title['it'] . '" aggiornato con successo!');

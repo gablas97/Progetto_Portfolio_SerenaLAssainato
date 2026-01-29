@@ -45,6 +45,10 @@ class ProjectController extends Controller
             'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'required|array|min:1',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+
+            'videos' => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,avi,mov,wmv|max:51200',
+
             'execution_year' => 'nullable|integer|digits:4|min:1900|max:' . date('Y'),
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
@@ -55,6 +59,7 @@ class ProjectController extends Controller
             'images.min' => 'Devi caricare almeno un\'immagine',
             'categories.required' => 'Devi selezionare almeno una categoria',
             'categories.min' => 'Devi selezionare almeno una categoria',
+            'videos.*.max' => 'Ogni video non può superare i 50MB',
         ]);
 
         // Salva le immagini
@@ -72,6 +77,15 @@ class ProjectController extends Controller
             }
         }
 
+        // Salva video
+        $videoPaths = [];
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $video) {
+                $path = $video->store('projects/videos', 'public');
+                $videoPaths[] = $path;
+            }
+        }
+
         // Crea il progetto
         $project = Project::create([
             'title' => $validated['title'],
@@ -81,6 +95,7 @@ class ProjectController extends Controller
             'execution_year' => $validated['execution_year'],
             'categories' => $validated['categories'],
             'images' => $imagePaths,
+            'videos' => $videoPaths,
         ]);
 
         return redirect()->route('admin.dashboard')
@@ -147,9 +162,16 @@ class ProjectController extends Controller
             'delete_images' => 'nullable|array',
             'delete_images.*' => 'integer',
 
+            'delete_videos' => 'nullable|array',
+            'delete_videos.*' => 'integer',
+
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+
+            'videos' => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,avi,mov,wmv|max:51200',
+
             'execution_year' => 'nullable|integer|digits:4',
             'categories' => 'required|array|min:1',
             'categories.*' => 'in:landscape,architecture,urban_design,illustrations',
@@ -177,12 +199,31 @@ class ProjectController extends Controller
             }
         }
 
+        $videoPaths = $project->videos ?? [];
+
+        if (!empty($validated['delete_videos'])) {
+            foreach ($validated['delete_videos'] as $index) {
+                if (isset($videoPaths[$index])) {
+                    Storage::disk('public')->delete($videoPaths[$index]);
+                    unset($videoPaths[$index]);
+                }
+            }
+            $videoPaths = array_values($videoPaths);
+        }
+
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $video) {
+                $videoPaths[] = $video->store('projects/videos', 'public');
+            }
+        }
+
         $project->update([
             'title' => $validated['title'],
             'subtitle' => $validated['subtitle'],
             'description' => $validated['description'],
             'location' => $validated['location'],
             'images' => $imagePaths,
+            'videos' => $videoPaths,
             'execution_year' => $validated['execution_year'],
             'categories' => $validated['categories'],
         ]);

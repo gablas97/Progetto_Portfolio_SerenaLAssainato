@@ -12,6 +12,7 @@ class Project extends Model
         'description',
         'location',
         'images',
+        'videos',
         'execution_year',
         'categories',
     ];
@@ -22,6 +23,7 @@ class Project extends Model
         'description' => 'array',
         'location' => 'array',
         'images' => 'array',
+        'videos' => 'array',
         'execution_year' => 'integer',
         'categories' => 'array',
     ];

@@ -91,6 +91,19 @@
                     @error('images.*')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <!-- VIDEO -->
+                <div class="mb-3">
+                    <label class="form-label">Video</label>
+                    <input type="file"
+                        class="form-control @error('videos') is-invalid @enderror @error('videos.*') is-invalid @enderror"
+                        name="videos[]"
+                        multiple
+                        accept="video/mp4,video/avi,video/mov,video/wmv">
+                    <small class="text-muted">Formati supportati: MP4, AVI, MOV, WMV. Max 50MB per video.</small>
+                    @error('videos')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    @error('videos.*')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
                 <!-- LINK ARTICOLO -->
                 <div class="mb-3">
                     <label class="form-label">Link Articolo</label>

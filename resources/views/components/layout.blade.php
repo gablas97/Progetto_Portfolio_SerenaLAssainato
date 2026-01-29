@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
     <title>Serena L'Assainato | Architect</title>
-    <meta name="description" content="Portfolio dell'architetta Serena L'Assainato. Scopri i miei progetti e le mie news. Contattami per collaborazioni e consulenze.">
+    <meta name="description" content="Serena L'Assainato | Portfolio - {{ __('ui.site_description') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-p">

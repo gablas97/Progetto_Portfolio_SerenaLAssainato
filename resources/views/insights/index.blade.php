@@ -30,6 +30,9 @@
                             @endif
                             <div class="index-title-overlay">
                                 <p class="mb-0 fs-5 fw-bold text-uppercase">{{ $insight->title[app()->getLocale()] }}</p>
+                                <p class="mb-0 fw-bold text-muted">
+                                    {{ $insight->date->format('d M Y') }}
+                                </p>
                             </div>
                         </div>
                     </a>

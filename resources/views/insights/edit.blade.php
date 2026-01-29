@@ -132,6 +132,47 @@
                     @enderror
                 </div>
 
+                <!-- VIDEO ESISTENTI (NUOVO) -->
+                @if(!empty($insight->videos) && count($insight->videos) > 0)
+                    <div class="mb-3">
+                        <label class="form-label">Video esistenti</label>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            @foreach($insight->videos as $index => $video)
+                                <div class="position-relative text-center">
+                                    <video class="rounded mb-2 t-05" height="100" controls>
+                                        <source src="{{ asset('storage/'.$video) }}" type="video/mp4">
+                                    </video>
+
+                                    <div class="form-check text-start">
+                                        <input class="form-check-input" type="checkbox"
+                                            name="delete_videos[]" value="{{ $index }}"
+                                            id="delete_video_{{ $index }}">
+                                        <label class="form-check-label small text-danger"
+                                            for="delete_video_{{ $index }}">
+                                            Elimina video
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <!-- CARICA NUOVI VIDEO (NUOVO) -->
+                <div class="mb-4">
+                    <label class="form-label">Aggiungi nuovi video</label>
+                    <input type="file" class="form-control @error('videos') is-invalid @enderror @error('videos.*') is-invalid @enderror"
+                            name="videos[]" multiple accept="video/mp4,video/avi,video/mov,video/wmv">
+                    <small class="text-muted">Formati: MP4, AVI, MOV, WMV. Max 50MB per video.</small>
+                    @error('videos')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @error('videos.*')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <!-- LINK ARTICOLO -->
                 <div class="mb-3">
                     <label class="form-label">Link Articolo</label>

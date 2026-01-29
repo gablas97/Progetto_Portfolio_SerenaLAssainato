@@ -11,6 +11,7 @@ class Insight extends Model
         'description',
         'date',
         'images',
+        'videos',
         'categories',
         'type',
         'visit_link',
@@ -21,6 +22,7 @@ class Insight extends Model
         'title' => 'array',
         'description' => 'array',
         'images' => 'array',
+        'videos' => 'array',
         'categories' => 'array',
     ];
 }

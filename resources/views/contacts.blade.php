@@ -75,7 +75,7 @@
                 <!-- Contact Form -->
                 <div class="card shadow-lg border-0 zoom-in transition-2 contact-form">
                     <div class="card-body p-4 p-md-5">
-                        <form action="{{ route('contact.send') }}" method="POST">
+                        <form action="{{ route('contact.send') }}" method="POST" id="contactForm">
                             @csrf
 
                             <!-- Nome -->
@@ -87,6 +87,7 @@
                                     id="name" 
                                     name="name" 
                                     value="{{ old('name') }}" 
+                                    maxlength="100"
                                     required
                                 >
                                 @error('name')
@@ -117,7 +118,9 @@
                                     class="form-control @error('message') is-invalid @enderror" 
                                     id="message" 
                                     name="message" 
-                                    rows="6" 
+                                    rows="6"
+                                    minlength="10"
+                                    maxlength="2000" 
                                     required
                                 >{{ old('message') }}</textarea>
                                 @error('message')
@@ -126,10 +129,13 @@
                             </div>
 
                             <!-- Honeypot Field -->
-                            <div style="display:none">
-                                <label>Company website</label>
-                                <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+                            <div style="position:absolute;left:-5000px" aria-hidden="true">
+                                <label>Website</label>
+                                <input type="text" name="website_url" tabindex="-1" autocomplete="off">
                             </div>
+
+                            <!-- reCAPTCHA v3 Token (invisibile) -->
+                            <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
 
                             <!-- Submit Button -->
                             <div class="text-center">
@@ -147,4 +153,19 @@
 
     </div>
 
+    <!-- reCAPTCHA v3 Script -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ config('services.recaptcha.site') }}', {action: 'contact'})
+            .then(function(token) {
+                document.getElementById('recaptchaResponse').value = token;
+                document.getElementById('contactForm').submit();
+            });
+        });
+    });
+    </script>
 </x-layout>

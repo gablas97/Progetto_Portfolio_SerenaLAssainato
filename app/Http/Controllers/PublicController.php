@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Insight;
 use App\Models\Project;
+use ReCaptcha\ReCaptcha;
 use Spatie\Sitemap\Sitemap;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use Spatie\Sitemap\Tags\Url;
-use function Pest\Laravel\session;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -24,51 +25,76 @@ class PublicController extends Controller
 
     public function about()
     {
-        session(['contact_form_loaded_at' => now()]);
-    
         return view('about');
     }
 
     public function contacts()
     {
+        request()->session()->put('contact_form_loaded_at', now());
+
         return view('contacts');
     }
 
     public function send(Request $request)
     {
         // Controllo honeypot
-        if ($request->filled('company_website')) {
+        if ($request->filled('website_url')) {
+            Log::warning('Honeypot triggered', ['ip' => $request->ip()]);
             return response()->noContent();
         }
 
         // Controllo tempo minimo
         $loadedAt = $request->session()->get('contact_form_loaded_at');
-        if ($loadedAt && (now()->diffInSeconds($loadedAt) < 3)) {
-            return abort(429);
+
+        if (!$loadedAt || $loadedAt->diffInSeconds(now()) < 5) {
+            Log::warning('Form submitted too fast', ['ip' => $request->ip()]);
+            return abort(429, 'Too fast');
+        }
+
+        // 3. Verifica reCAPTCHA
+        $recaptcha = new ReCaptcha(config('services.recaptcha.secret'));
+        $resp = $recaptcha->verify($request->input('g-recaptcha-response'), $request->ip());
+        
+        if (!$resp->isSuccess() || $resp->getScore() < 0.5) {
+            Log::warning('reCAPTCHA failed', [
+                'ip' => $request->ip(),
+                'score' => $resp->getScore()
+            ]);
+            return back()->withErrors(['recaptcha' => 'Verifica fallita. Riprova.']);
         }
 
         // Validazione
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required|string|min:10',
+            'name' => 'required|string|max:100|min:2|regex:/^[\p{L}\p{M}\s\'-]+$/u',
+            'email' => 'required|email:rfc|max:255',
+            'message' => 'required|string|min:15|max:2000',
         ]);
 
         // Dati per l'email
         $data = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'user_message' => $validated['message'],
+            'name' => strip_tags($validated['name']),
+            'email' => filter_var($validated['email'], FILTER_SANITIZE_EMAIL),
+            'user_message' => strip_tags($validated['message']),
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
         ];
 
         // Invia email
-        Mail::send('emails.contact', $data, function($message) use ($data) {
-            $message->to('arch.serenal@gmail.com')
-                    ->subject('Nuovo messaggio da ' . $data['name'])
-                    ->replyTo($data['email']);
-        });
+        try {
+            Mail::send('emails.contact', $data, function($message) use ($data) {
+                $message->to('arch.serenal@gmail.com')
+                        ->subject('Nuovo messaggio da ' . $data['name'])
+                        ->replyTo($data['email']);
+            });
 
-        return redirect()->back()->with('success', __('ui.contact_success'))->header('X-Robots-Tag', 'noindex, nofollow');
+            // Reset timestamp
+            $request->session()->forget('contact_form_loaded_at');
+
+            return redirect()->back()->with('success', __('ui.contact_success'));
+        } catch (\Exception $e) {
+            Log::error('Email send failed', ['error' => $e->getMessage()]);
+            return back()->withErrors(['email' => 'Errore invio. Riprova.']);
+        }
     }
 
     public function setLanguage($lang)

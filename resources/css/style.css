@@ -336,19 +336,28 @@ ul a:hover {
 
 .home-animation:hover {
     transform: translateY(-20px);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .insight-image-home {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     overflow: hidden;
 }
 
-.insight-image-home:hover {
+.insight-image-show {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+.insight-image-show:hover {
     transform: scale(1.1);
+    transition: all 0.5s ease;
 }
 
 .insight-content-home {

@@ -13,7 +13,17 @@
         <div class="col-md-8 transition-col mb-3 mb-lg-0" id="carouselCol">
             <div id="projectCarousel" class="carousel slide zoom-in delay-800 transition-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @foreach(array_slice($project->images, 1) as $image)
+                    
+                    @php
+                        $carouselImages = array_slice($project->images, 1);
+
+                        $carouselVideos = $project->videos ?? [];
+
+                        $totalItems = count($carouselImages) + count($carouselVideos);
+                    @endphp
+
+                    {{-- IMMAGINI --}}
+                    @foreach($carouselImages as $image)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $image) }}" 
                                 class="d-block w-100 rounded" 
@@ -21,8 +31,23 @@
                                 alt="{{ $project->title[app()->getLocale()] }}">
                         </div>
                     @endforeach
+
+                    {{-- VIDEO (alla fine) --}}
+                    @foreach($carouselVideos as $video)
+                        <div class="carousel-item {{ empty($carouselImages) && $loop->first ? 'active' : '' }}">
+                            <video class="d-block w-100 rounded" 
+                                style="height: 500px; object-fit: contain;" 
+                                controls>
+                                <source src="{{ asset('storage/' . $video) }}" type="video/mp4">
+                                Il tuo browser non supporta il tag video.
+                            </video>
+                        </div>
+                    @endforeach
+
                 </div>
-                @if (count($project->images) > 2)    
+
+                {{-- CONTROLLI CAROSELLO (SOLO SE PIU' DI UNA IMMAGINE) --}}
+                @if ($totalItems > 1)    
                     <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                     </button>
@@ -105,19 +130,19 @@
                                     <div style="height: 200px;" class="overflow-hidden">
                                         @if($item->images && count($item->images) > 0)
                                             <img src="{{ asset('storage/' . $item->images[0]) }}"
-                                            class="insight-image-home"
+                                                class="insight-image-show"
                                                 alt="{{ $item->title[app()->getLocale()] }}">
                                         @elseif (!$item->images && $item->type === 'news')
                                             <img src="{{ asset('images/news.jpg') }}" 
-                                                class="insight-image-home"
+                                                class="insight-image-show"
                                                 alt="News">
                                         @elseif (!$item->images && $item->type === 'insight')
                                             <img src="{{ asset('images/insight.jpg') }}" 
-                                                class="insight-image-home" 
+                                                class="insight-image-show" 
                                                 alt="Insight">
                                         @else
                                             <img src="{{ asset('images/interview.jpg') }}" 
-                                                class="insight-image-home"
+                                                class="insight-image-show"
                                                 alt="Interview">
                                         @endif
                                     </div>
@@ -162,3 +187,21 @@
 </div>
 
 </x-layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('projectCarousel');
+    
+    if (carousel) {
+        carousel.addEventListener('slid.bs.carousel', function (event) {
+            const activeSlide = event.relatedTarget;
+            const video = activeSlide.querySelector('video');
+            
+            if (video) {
+                video.currentTime = 0;
+                video.play();
+            }
+        });
+    }
+});
+</script>

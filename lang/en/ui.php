@@ -1,8 +1,9 @@
 <?php
 
 return [
+    'site_description' => 'Discover my projects and news. Contact me for collaborations and consultations.',
     'projects' => 'Projects',
-    'news' => 'News & Insights',
+    'news' => 'News',
     'about' => 'About',
     'about_me' => 'About Me',
     'contacts' => 'Contact',
@@ -72,6 +73,12 @@ return [
             'message' => 'Sorry, the page has expired for security reasons.<br>
             Please reload the page or try again.',
             'button' => 'Reload the page',
+        ],
+        '429' => [
+            'title' => 'Too Many Requests',
+            'message' => 'You have sent too many requests in a short period.<br>
+            Please wait a moment before trying again.',
+            'button' => 'Return to Homepage',
         ],
         '500' => [
             'title' => 'Service Unavailable',
